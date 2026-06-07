@@ -13,10 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-/**
- *
- * @author m
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +27,7 @@ public class PerfilUsuario extends PersistenceEntity {
     private String descricao;
  
     @Column(name = "permissoes")
-    private String permissoes;
+    private String permissoes; 
  
 }
 
