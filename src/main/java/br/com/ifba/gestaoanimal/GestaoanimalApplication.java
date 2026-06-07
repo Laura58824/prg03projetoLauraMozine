@@ -1,4 +1,4 @@
-package com.ifba.gestaoanimal;
+package br.com.ifba.gestaoanimal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

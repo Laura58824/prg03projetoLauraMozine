@@ -8,7 +8,7 @@
 		<version>3.5.14</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ifba</groupId>
+	<groupId>br.com.ifba</groupId>
 	<artifactId>gestaoanimal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>prg03gestaoanimal</name>
