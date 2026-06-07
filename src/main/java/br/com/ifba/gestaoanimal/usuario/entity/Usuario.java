@@ -6,10 +6,12 @@ package br.com.ifba.gestaoanimal.usuario.entity;
 
 import br.com.ifba.gestaoanimal.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.gestaoanimal.perfilusuario.entity.PerfilUsuario;
+import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
