@@ -9,5 +9,17 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum SexoEnum {
-    MACHO, FEMEA
+    MACHO, FEMEA;
+    
+     @Override    
+    public String toString() {
+        switch (this) {
+            case MACHO:
+                return "Macho";
+            case FEMEA:
+                return "Fêmea";
+            default:
+                return name();
+        }
+    }
 }

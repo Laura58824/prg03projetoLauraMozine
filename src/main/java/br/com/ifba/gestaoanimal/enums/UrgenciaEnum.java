@@ -9,5 +9,21 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum UrgenciaEnum {
-    BAIXA, MEDIA, ALTA, CRITICA
+    BAIXA, MEDIA, ALTA, CRITICA;
+    
+    @Override    
+    public String toString() {
+        switch (this) {
+            case BAIXA:
+                return "Baixa";
+            case MEDIA:
+                return "Média";
+            case ALTA:
+                return "Alta";
+            case CRITICA:
+                return "Crítica";
+            default:
+                return name();
+        }
+    }
 }

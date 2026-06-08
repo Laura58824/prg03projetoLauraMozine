@@ -9,5 +9,25 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum StatusAdocaoEnum {
-    ABERTA, EM_ANALISE, APROVADA, CONCLUIDA, RECUSADA, CANCELADA
+    ABERTA, EM_ANALISE, APROVADA, CONCLUIDA, RECUSADA, CANCELADA;
+    
+     @Override    
+    public String toString() {
+        switch (this) {
+            case ABERTA:
+                return "Aberta";
+            case EM_ANALISE:
+                return "Em análise";
+            case APROVADA:
+                return "Aprovada";
+            case CONCLUIDA:
+                return "Concluída";
+            case RECUSADA:
+                return "Recusada";
+            case CANCELADA:
+                return "Cancelada";
+            default:
+                return name();
+        }
+    }
 }

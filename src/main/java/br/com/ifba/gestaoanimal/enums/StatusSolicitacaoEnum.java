@@ -9,5 +9,19 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum StatusSolicitacaoEnum {
-    PENDENTE, APROVADA, RECUSADA
+    PENDENTE, APROVADA, RECUSADA;
+    
+     @Override    
+    public String toString() {
+        switch (this) {
+            case PENDENTE:
+                return "Pendente";
+            case APROVADA:
+                return "Aprovada";
+            case RECUSADA:
+                return "Recusada";
+            default:
+                return name();
+        }
+    }
 }

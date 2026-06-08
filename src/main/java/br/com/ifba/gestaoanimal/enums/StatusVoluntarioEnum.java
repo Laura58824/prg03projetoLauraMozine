@@ -9,5 +9,19 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum StatusVoluntarioEnum {
-    ATIVO, INATIVO, SUSPENSO
+    ATIVO, INATIVO, SUSPENSO;
+    
+    @Override    
+    public String toString() {
+        switch (this) {
+            case ATIVO:
+                return "Ativo";
+            case INATIVO:
+                return "Inativo";
+            case SUSPENSO:
+                return "Suspenso";
+            default:
+                return name();
+        }
+    }
 }

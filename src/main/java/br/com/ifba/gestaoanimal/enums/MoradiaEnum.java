@@ -9,5 +9,24 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum MoradiaEnum {
-    CASA, APARTAMENTO, SITIO, CHACARA, OUTRO
+    CASA, APARTAMENTO, SITIO, CHACARA, OUTRO;
+    
+     @Override    
+    public String toString() {
+        switch (this) {
+            case CASA:
+                return "Casa";
+            case APARTAMENTO:
+                return "Apartamento";
+            case SITIO:
+                return "Sítio";
+            case CHACARA:
+                return "Chácara";
+            case OUTRO:
+                return "Outro";
+            default:
+                return name();
+        }
+    }
+    
 }

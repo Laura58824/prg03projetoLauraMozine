@@ -9,5 +9,17 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum TipoPessoaEnum {
-    FISICA, JURIDICA
+    FISICA, JURIDICA;
+    
+    @Override    
+    public String toString() {
+        switch (this) {
+            case FISICA:
+                return "Física";
+            case JURIDICA:
+                return "Jurídica";
+            default:
+                return name();
+        }
+    }
 }

@@ -9,5 +9,23 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum EspecieEnum {
-    CACHORRO, GATO, CAVALO, REPTIL, OUTRO
+    CACHORRO, GATO, CAVALO, REPTIL, OUTRO;
+    
+    @Override    
+    public String toString() {
+        switch (this) {
+            case CACHORRO:
+                return "Cachorro";
+            case GATO:
+                return "Gato";
+            case CAVALO:
+                return "Cavalo";
+            case REPTIL:
+                return "Réptil";
+            case OUTRO:
+                return "Outro";
+            default:
+                return name();
+        }
+    }
 }

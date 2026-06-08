@@ -9,5 +9,20 @@ package br.com.ifba.gestaoanimal.enums;
  * @author m
  */
 public enum PorteEnum {
-    PEQUENO, MEDIO, GRANDE
+    PEQUENO, MEDIO, GRANDE;
+    
+     @Override    
+    public String toString() {
+        switch (this) {
+            case PEQUENO:
+                return "Pequeno";
+            case MEDIO:
+                return "Médio";
+            case GRANDE:
+                return "Grande"; 
+            default:
+                return name();
+        }
+    }
+    
 }
