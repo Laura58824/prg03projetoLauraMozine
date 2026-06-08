@@ -1,21 +1,142 @@
-
 package br.com.ifba.gestaoanimal.animal.view;
+
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.entity.Animal;
+import br.com.ifba.gestaoanimal.enums.EspecieEnum;
+import br.com.ifba.gestaoanimal.enums.PorteEnum;
+import br.com.ifba.gestaoanimal.enums.SexoEnum;
+import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
+import javax.swing.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import javax.swing.JOptionPane;
+
+import java.time.LocalDate;
+
+import java.time.LocalDate;
+
+import javax.swing.JOptionPane;
+
+import java.time.format.DateTimeParseException;
 
 public class AnimalCadastrar extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AnimalCadastrar.class.getName());
-    private br.com.ifba.gestaoanimal.animal.controller.AnimalController animalController;
-    private AnimalListar parent;
-    
+    private final AnimalController animalController;
+    private final AnimalListar parent;
+
     public AnimalCadastrar(AnimalController animalController, AnimalListar parent) {
-         initComponents();
         this.animalController = animalController;
         this.parent = parent;
+        initComponents();
+        configurarTela();
+    }
+
+    private void configurarTela() {
+        setTitle("PatasSalvas — cadastrar animal");
+        setLocationRelativeTo(null);
+
+        java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
+
+        // ── Preenche os ComboBoxes com os enums ──
+        cmbEspecie.setModel(new DefaultComboBoxModel(EspecieEnum.values()));
+        cmbSexo.setModel(new DefaultComboBoxModel(SexoEnum.values()));
+        cmbPorte.setModel(new DefaultComboBoxModel(PorteEnum.values()));
+        cmbStatus.setModel(new DefaultComboBoxModel(StatusAnimalEnum.values()));
+        
+        // ── Fontes ──
+        txtNome.setFont(fonte);
+        cmbEspecie.setFont(fonte);
+        txtRaca.setFont(fonte);
+        cmbSexo.setFont(fonte);
+        spnIdade.setFont(fonte);
+        cmbPorte.setFont(fonte);
+        cmbStatus.setFont(fonte);
+        txtDataEntrada.setFont(fonte);
+        txtTemperamento.setFont(fonte);
+        txtNecessidades.setFont(fonte);
+        btnSalvar.setFont(fonte);
+        btnCancelar.setFont(fonte);
+
+        // ── Botão Salvar ──
+        btnSalvar.setText("✔ Salvar");
+        btnSalvar.setForeground(new java.awt.Color(60, 52, 137));
+        btnSalvar.setBackground(java.awt.Color.WHITE);
+        btnSalvar.setOpaque(true);
+        btnSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 52, 137), 1, true));
+
+        // ── Botão Cancelar ──
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setForeground(new java.awt.Color(80, 80, 80));
+        btnCancelar.setBackground(java.awt.Color.WHITE);
+        btnCancelar.setOpaque(true);
+        btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
+
+        // ── Placeholder data ──
+        txtDataEntrada.setToolTipText("dd/MM/yyyy");
+    }
+
+    private void salvar() {
+        // ── Validação dos campos obrigatórios ──
+        if (txtNome.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "O nome é obrigatório.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (cmbEspecie.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione a espécie.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (cmbSexo.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione o sexo.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (cmbStatus.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione o status.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // ── Monta o objeto Animal ──
+        Animal animal = new Animal();
+        animal.setNome(txtNome.getText().trim());
+        animal.setEspecie((EspecieEnum) cmbEspecie.getSelectedItem());
+        animal.setRaca(txtRaca.getText().trim());
+        animal.setSexo((SexoEnum) cmbSexo.getSelectedItem());
+        animal.setIdadeEstimada((Integer) spnIdade.getValue());
+        animal.setPorte((PorteEnum) cmbPorte.getSelectedItem());
+        animal.setStatus((StatusAnimalEnum) cmbStatus.getSelectedItem());
+        animal.setTemperamento(txtTemperamento.getText().trim());
+        animal.setNecessidadesEspeciais(txtNecessidades.getText().trim());
+        animal.setAtivo(true);
+
+        // ── Data de entrada ──
+        String dataStr = txtDataEntrada.getText().trim();
+        if (!dataStr.isEmpty()) {
+            try {
+                LocalDate data = LocalDate.parse(dataStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                animal.setDataEntrada(data);
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(this, "Data inválida. Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            animal.setDataEntrada(LocalDate.now());
+        }
+
+        // ── Salva e fecha ──
+        animalController.save(animal);
+        JOptionPane.showMessageDialog(this, "Animal cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        parent.carregarTabela();
+        dispose();
+    }
+
+    private void cancelar() {
+        dispose();
     }
 
    
     @SuppressWarnings("unchecked")
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -65,21 +186,15 @@ public class AnimalCadastrar extends javax.swing.JFrame {
 
         jLabel10.setText("Necessidades especiais");
 
-        cmbEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbPorte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtNecessidades.setColumns(20);
         txtNecessidades.setRows(5);
         jScrollPane1.setViewportView(txtNecessidades);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,7 +306,14 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+         salvar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+       cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+  
     public static void main(String args[]) {
        
     }

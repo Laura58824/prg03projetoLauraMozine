@@ -47,24 +47,25 @@ private void configurarTabela() {
 
     // ── Linhas alternadas + seleção roxa ──
     tblAnimais.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
-        @Override
-        public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
-                Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            if (isSelected) {
-                setBackground(new java.awt.Color(238, 237, 254));
-                setForeground(new java.awt.Color(60, 52, 137));
-            } else if (row % 2 == 0) {
-                setBackground(java.awt.Color.WHITE);
-                setForeground(java.awt.Color.BLACK);
-            } else {
-                setBackground(new java.awt.Color(248, 248, 252));
-                setForeground(java.awt.Color.BLACK);
+    @Override
+            public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
+                    Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setHorizontalAlignment(JLabel.CENTER);  // ← centraliza
+                if (isSelected) {
+                    setBackground(new java.awt.Color(238, 237, 254));
+                    setForeground(new java.awt.Color(60, 52, 137));
+                } else if (row % 2 == 0) {
+                    setBackground(java.awt.Color.WHITE);
+                    setForeground(java.awt.Color.BLACK);
+                } else {
+                    setBackground(new java.awt.Color(248, 248, 252));
+                    setForeground(java.awt.Color.BLACK);
+                }
+                setOpaque(true);
+                return this;
             }
-            setOpaque(true);
-            return this;
-        }
-    });
+        });
 
     // ── Badge colorido na coluna Status ──
     tblAnimais.getColumnModel().getColumn(6).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
@@ -146,7 +147,9 @@ private void configurarTabela() {
         for (Animal a : animais) {
             tableModel.addRow(new Object[]{
                 a.getId(), a.getNome(), a.getEspecie(), a.getRaca(),
-                a.getSexo(), a.getPorte(), a.getStatus(), a.getDataEntrada()
+                a.getSexo(), a.getPorte(), a.getStatus(),  a.getDataEntrada() != null 
+        ? a.getDataEntrada().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        : ""
             });
         }
     }

@@ -32,9 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-# Dados sensíveis
-src/main/resources/application.properties
-
 # NetBeans
 nbproject/
 nb-configuration.xml
