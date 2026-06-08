@@ -3,6 +3,7 @@ package br.com.ifba.gestaoanimal.animal.view;
 
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,10 +78,10 @@ private void configurarTabela() {
             label.setFont(fonte);
             String status = value != null ? value.toString() : "";
             switch (status) {
-                case "DISPONIVEL"    -> { label.setBackground(new java.awt.Color(234, 243, 222)); label.setForeground(new java.awt.Color(59, 109, 17)); }
-                case "EM_TRATAMENTO" -> { label.setBackground(new java.awt.Color(250, 238, 218)); label.setForeground(new java.awt.Color(133, 79, 11)); }
-                case "EM_ADOCAO"     -> { label.setBackground(new java.awt.Color(225, 237, 251)); label.setForeground(new java.awt.Color(24, 95, 165)); }
-                case "ADOTADO"       -> { label.setBackground(new java.awt.Color(209, 231, 221)); label.setForeground(new java.awt.Color(20, 108, 67)); }
+                case "Disponível"    -> { label.setBackground(new java.awt.Color(234, 243, 222)); label.setForeground(new java.awt.Color(59, 109, 17)); }
+                case "Em tratamento" -> { label.setBackground(new java.awt.Color(250, 238, 218)); label.setForeground(new java.awt.Color(133, 79, 11)); }
+                case "Em adoção"     -> { label.setBackground(new java.awt.Color(225, 237, 251)); label.setForeground(new java.awt.Color(24, 95, 165)); }
+                case "Adotado"       -> { label.setBackground(new java.awt.Color(209, 231, 221)); label.setForeground(new java.awt.Color(20, 108, 67)); }
                 default              -> { label.setBackground(java.awt.Color.WHITE);              label.setForeground(java.awt.Color.BLACK); }
             }
             label.setOpaque(true);
@@ -89,7 +90,7 @@ private void configurarTabela() {
     });
 
     // ── Painel de botões ──
-    painelBotoes.setBackground(new java.awt.Color(245, 245, 250));
+    painelBotoes.setBackground(Color.WHITE);
 
     // ── Botões com borda colorida ──
     btnNovo.setText(" Novo ");
@@ -126,10 +127,14 @@ private void configurarTabela() {
     txtBusca.setFont(fonte);
 
     // ── Título roxo no topo ──
-    JPanel painelTitulo = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-    painelTitulo.setBackground(new java.awt.Color(60, 52, 137));
-   
-    add(painelTitulo, java.awt.BorderLayout.NORTH);
+    painelBarra.setBackground(new java.awt.Color(60, 52, 137));
+    painelBarra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
+
+    JLabel lblTitulo = new JLabel(" SOSPatas - Gestão de Animais");
+    lblTitulo.setForeground(java.awt.Color.WHITE);
+    lblTitulo.setFont(new java.awt.Font("Palatino Linotype", java.awt.Font.BOLD, 20));
+
+    painelBarra.add(lblTitulo);
 
     // ── Fonte da tabela ──
     tblAnimais.setFont(fonte);
@@ -165,6 +170,7 @@ private void configurarTabela() {
         btnAtualizar = new javax.swing.JButton();
         lblBusca = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
+        painelBarra = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAnimais = new javax.swing.JTable();
 
@@ -187,37 +193,50 @@ private void configurarTabela() {
 
         txtBusca.addActionListener(this::txtBuscaActionPerformed);
 
+        javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
+        painelBarra.setLayout(painelBarraLayout);
+        painelBarraLayout.setHorizontalGroup(
+            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        painelBarraLayout.setVerticalGroup(
+            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
         painelBotoesLayout.setHorizontalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(16, 16, 16)
                 .addComponent(lblBusca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(69, 69, 69)
                 .addComponent(btnNovo)
-                .addGap(40, 40, 40)
-                .addComponent(btnEditar)
-                .addGap(39, 39, 39)
-                .addComponent(btnDesativar)
                 .addGap(42, 42, 42)
+                .addComponent(btnEditar)
+                .addGap(35, 35, 35)
+                .addComponent(btnDesativar)
+                .addGap(38, 38, 38)
                 .addComponent(btnAtualizar)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         painelBotoesLayout.setVerticalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addComponent(painelBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBusca)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovo)
                     .addComponent(btnEditar)
                     .addComponent(btnDesativar)
-                    .addComponent(btnAtualizar)
-                    .addComponent(lblBusca)
-                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(btnAtualizar))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelBotoes, java.awt.BorderLayout.PAGE_START);
@@ -323,6 +342,7 @@ private void configurarTabela() {
     private javax.swing.JButton btnNovo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusca;
+    private javax.swing.JPanel painelBarra;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JTable tblAnimais;
     private javax.swing.JTextField txtBusca;
