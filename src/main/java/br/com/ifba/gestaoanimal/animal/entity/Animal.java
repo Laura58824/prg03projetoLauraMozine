@@ -60,4 +60,7 @@ public class Animal extends PersistenceEntity {
     @ManyToOne
     @JoinColumn(name = "ocorrencia_id")
     private Ocorrencia ocorrencia;
+    
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
 }
