@@ -41,3 +41,8 @@ target/
 
 # Logs
 *.log
+
+# NetBeans
+nbactions.xml
+nb-configuration.xml
+/nbproject/

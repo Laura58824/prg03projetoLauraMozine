@@ -60,7 +60,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         btnCancelar.setFont(fonte);
 
         // ── Botão Salvar ──
-        btnSalvar.setText("✔ Salvar");
+        btnSalvar.setText("Salvar");
         btnSalvar.setForeground(new java.awt.Color(60, 52, 137));
         btnSalvar.setBackground(java.awt.Color.WHITE);
         btnSalvar.setOpaque(true);
