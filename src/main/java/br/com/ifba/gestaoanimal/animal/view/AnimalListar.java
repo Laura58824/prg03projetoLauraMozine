@@ -67,6 +67,7 @@ private void configurarTabela() {
                 return this;
             }
         });
+    
 
     // ── Badge colorido na coluna Status ──
     tblAnimais.getColumnModel().getColumn(6).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
@@ -123,8 +124,7 @@ private void configurarTabela() {
 
     // ── Campo de busca ──
    
-    lblBusca.setFont(fonte);
-    txtBusca.setFont(fonte);
+       txtBusca.setFont(fonte);
 
     // ── Título roxo no topo ──
     painelBarra.setBackground(new java.awt.Color(60, 52, 137));
@@ -168,7 +168,6 @@ private void configurarTabela() {
         btnEditar = new javax.swing.JButton();
         btnDesativar = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
-        lblBusca = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         painelBarra = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -189,8 +188,6 @@ private void configurarTabela() {
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(this::btnAtualizarActionPerformed);
 
-        lblBusca.setText("Buscar:");
-
         txtBusca.addActionListener(this::txtBuscaActionPerformed);
 
         javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
@@ -210,9 +207,7 @@ private void configurarTabela() {
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(painelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblBusca)
-                .addGap(18, 18, 18)
+                .addGap(48, 48, 48)
                 .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addComponent(btnNovo)
@@ -222,7 +217,7 @@ private void configurarTabela() {
                 .addComponent(btnDesativar)
                 .addGap(38, 38, 38)
                 .addComponent(btnAtualizar)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         painelBotoesLayout.setVerticalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,13 +225,12 @@ private void configurarTabela() {
                 .addComponent(painelBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBusca)
                     .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovo)
                     .addComponent(btnEditar)
                     .addComponent(btnDesativar)
                     .addComponent(btnAtualizar))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelBotoes, java.awt.BorderLayout.PAGE_START);
@@ -341,7 +335,6 @@ private void configurarTabela() {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblBusca;
     private javax.swing.JPanel painelBarra;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JTable tblAnimais;
