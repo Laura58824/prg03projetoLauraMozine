@@ -27,29 +27,32 @@ import lombok.NoArgsConstructor;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "pessoa")
-public class Pessoa extends PersistenceEntity{
-    
+public class Pessoa extends PersistenceEntity {
+
     @Column(name = "nome", nullable = false)
     private String nome;
- 
+
     @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
- 
+
     @Column(name = "email")
     private String email;
- 
+
     @Column(name = "telefone")
     private String telefone;
- 
+
     @Column(name = "endereco")
     private String endereco;
- 
+
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
- 
+
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
- 
+
     @OneToOne(mappedBy = "pessoa")
     private Usuario usuario;
+
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
 }
