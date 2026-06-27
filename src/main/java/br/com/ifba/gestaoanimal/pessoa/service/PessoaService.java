@@ -16,11 +16,11 @@ public class PessoaService implements PessoaIService {
     @Override
     public Pessoa save(Pessoa pessoa) {
         if (pessoa == null)
-            throw new IllegalArgumentException("Pessoa não pode ser nula.");
+            throw new IllegalArgumentException("Pessoa nao pode ser nula.");
         if (pessoa.getId() != null)
-            throw new IllegalArgumentException("Pessoa nova não deve ter ID.");
+            throw new IllegalArgumentException("Pessoa nova nao deve ter ID.");
         if (pessoaRepository.existsByCpf(pessoa.getCpf()))
-            throw new RuntimeException("Já existe uma pessoa cadastrada com esse CPF.");
+            throw new RuntimeException("Ja existe uma pessoa cadastrada com esse CPF.");
         pessoa.setAtivo(true);
         if (pessoa.getDataCadastro() == null)
             pessoa.setDataCadastro(LocalDate.now());
@@ -30,22 +30,22 @@ public class PessoaService implements PessoaIService {
     @Override
     public Pessoa update(Pessoa pessoa) {
         if (pessoa == null)
-            throw new IllegalArgumentException("Pessoa não pode ser nula.");
+            throw new IllegalArgumentException("Pessoa nao pode ser nula.");
         if (pessoa.getId() == null)
-            throw new IllegalArgumentException("ID é obrigatório para atualização.");
+            throw new IllegalArgumentException("ID e obrigatorio para atualizacao.");
         if (!pessoaRepository.existsById(pessoa.getId()))
-            throw new RuntimeException("Pessoa não encontrada com id: " + pessoa.getId());
+            throw new RuntimeException("Pessoa nao encontrada com id: " + pessoa.getId());
         return pessoaRepository.save(pessoa);
     }
 
     @Override
     public void delete(Long id) {
         if (id == null)
-            throw new IllegalArgumentException("ID não pode ser nulo.");
+            throw new IllegalArgumentException("ID nao pode ser nulo.");
         Pessoa pessoa = pessoaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada com id: " + id));
+                .orElseThrow(() -> new RuntimeException("Pessoa nao encontrada com id: " + id));
         if (Boolean.FALSE.equals(pessoa.getAtivo()))
-            throw new RuntimeException("Pessoa já está inativa.");
+            throw new RuntimeException("Pessoa ja esta inativa.");
         pessoa.setAtivo(false);
         pessoaRepository.save(pessoa);
     }
@@ -58,15 +58,15 @@ public class PessoaService implements PessoaIService {
     @Override
     public Pessoa findById(Long id) {
         if (id == null)
-            throw new IllegalArgumentException("ID não pode ser nulo.");
+            throw new IllegalArgumentException("ID nao pode ser nulo.");
         return pessoaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada com id: " + id));
+                .orElseThrow(() -> new RuntimeException("Pessoa nao encontrada com id: " + id));
     }
 
     @Override
     public List<Pessoa> findByNome(String nome) {
         if (nome == null || nome.isBlank())
-            throw new IllegalArgumentException("Nome para busca não pode ser vazio.");
+            throw new IllegalArgumentException("Nome para busca nao pode ser vazio.");
         return pessoaRepository.findByNomeContainingIgnoreCase(nome);
     }
 }
