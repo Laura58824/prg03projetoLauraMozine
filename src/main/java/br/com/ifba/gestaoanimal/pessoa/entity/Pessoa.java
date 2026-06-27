@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -47,8 +48,9 @@ public class Pessoa extends PersistenceEntity {
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name = "data_cadastro")
-    private LocalDate dataCadastro;
+    @CreationTimestamp
+   @Column(name = "data_cadastro", nullable = false, updatable = false)
+   private LocalDate dataCadastro;
 
     @OneToOne(mappedBy = "pessoa")
     private Usuario usuario;
