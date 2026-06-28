@@ -132,21 +132,56 @@ public class AdocaoListar extends javax.swing.JFrame {
             });
         }
     }
-    
+    private void filtrarTabela() {
+
+    String busca = txtBusca.getText().trim().toLowerCase();
+    String status = cmbStatus.getSelectedItem().toString();
+
+    tableModel.setRowCount(0);
+
+    for (Adocao a : adocaoController.findAll()) {
+
+        boolean atendeBusca =
+                busca.isEmpty()
+                || busca.equals("buscar por animal ou adotante")
+                || (a.getAnimal() != null &&
+                    a.getAnimal().getNome().toLowerCase().contains(busca))
+                || (a.getAdotante() != null &&
+                    a.getAdotante().getNome().toLowerCase().contains(busca));
+
+        boolean atendeStatus =
+                status.equals("Todos os status")
+                || a.getStatus().toString().equals(status);
+
+        if (atendeBusca && atendeStatus) {
+
+            tableModel.addRow(new Object[]{
+                a.getId(),
+                a.getAnimal().getNome(),
+                a.getAdotante().getNome(),
+                a.getResponsavel().getNome(),
+                a.getDataAbertura(),
+                a.getDataConclusao(),
+                a.getStatus()
+            });
+
+        }
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAdocoes = new javax.swing.JTable();
-        painelBarra = new javax.swing.JPanel();
         painelBotoes = new javax.swing.JPanel();
-        btnNovo = new javax.swing.JButton();
         txtBusca = new javax.swing.JTextField();
         cmbStatus = new javax.swing.JComboBox<>();
+        btnNovo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
+        painelBarra = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -163,10 +198,17 @@ public class AdocaoListar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAdocoes);
 
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyReleased(evt);
+            }
+        });
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos os status", "Em análise", "Aprovada", "Reprovada", "Concluída" }));
+        cmbStatus.addActionListener(this::cmbStatusActionPerformed);
+
         btnNovo.setText("Novo");
         btnNovo.addActionListener(this::btnNovoActionPerformed);
-
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(this::btnEditarActionPerformed);
@@ -177,57 +219,55 @@ public class AdocaoListar extends javax.swing.JFrame {
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(this::btnAtualizarActionPerformed);
 
+        javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
+        painelBarra.setLayout(painelBarraLayout);
+        painelBarraLayout.setHorizontalGroup(
+            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        painelBarraLayout.setVerticalGroup(
+            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 47, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
         painelBotoesLayout.setHorizontalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBotoesLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbStatus, 0, 372, Short.MAX_VALUE)
-                    .addComponent(txtBusca))
-                .addGap(113, 113, 113)
+                .addGap(23, 23, 23)
+                .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(124, 124, 124)
                 .addComponent(btnNovo)
-                .addGap(49, 49, 49)
+                .addGap(36, 36, 36)
                 .addComponent(btnEditar)
-                .addGap(47, 47, 47)
+                .addGap(42, 42, 42)
                 .addComponent(btnExcluir)
-                .addGap(47, 47, 47)
+                .addGap(32, 32, 32)
                 .addComponent(btnAtualizar)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
+            .addComponent(painelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelBotoesLayout.setVerticalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelBotoesLayout.createSequentialGroup()
+                .addComponent(painelBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelBotoesLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
                         .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNovo)
                             .addComponent(btnEditar)
                             .addComponent(btnExcluir)
                             .addComponent(btnAtualizar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
-        painelBarra.setLayout(painelBarraLayout);
-        painelBarraLayout.setHorizontalGroup(
-            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        painelBarraLayout.setVerticalGroup(
-            painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBarraLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                        .addGap(38, 38, 38))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,36 +275,22 @@ public class AdocaoListar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addComponent(painelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(painelBarra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        AdocaoCadastrar cadastrar = new AdocaoCadastrar(adocaoController, animalController, pessoaController, this);
-        cadastrar.setVisible(true);
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-         int linha = tblAdocoes.getSelectedRow();
-        if (linha == -1) {
-            JOptionPane.showMessageDialog(this, "Selecione uma adoção para editar.",
-                "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        Long id = (Long) tableModel.getValueAt(linha, 0);
-        Adocao adocao = adocaoController.findById(id);
-        AdocaoEditar editar = new AdocaoEditar(adocaoController, animalController, pessoaController, this, adocao);
-        editar.setVisible(true);
-    }//GEN-LAST:event_btnEditarActionPerformed
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        carregarTabela();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int linha = tblAdocoes.getSelectedRow();
@@ -283,9 +309,31 @@ public class AdocaoListar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        carregarTabela();
-    }//GEN-LAST:event_btnAtualizarActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int linha = tblAdocoes.getSelectedRow();
+        if (linha == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma adoção para editar.",
+                "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Long id = (Long) tableModel.getValueAt(linha, 0);
+        Adocao adocao = adocaoController.findById(id);
+        AdocaoEditar editar = new AdocaoEditar(adocaoController, animalController, pessoaController, this, adocao);
+        editar.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        AdocaoCadastrar cadastrar = new AdocaoCadastrar(adocaoController, animalController, pessoaController, this);
+        cadastrar.setVisible(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
+           filtrarTabela();
+    }//GEN-LAST:event_cmbStatusActionPerformed
+
+    private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
+        filtrarTabela();
+    }//GEN-LAST:event_txtBuscaKeyReleased
 
    
     public static void main(String args[]) {}
@@ -295,7 +343,7 @@ public class AdocaoListar extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JComboBox<Object> cmbStatus;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel painelBarra;
     private javax.swing.JPanel painelBotoes;

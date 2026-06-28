@@ -1,5 +1,7 @@
 package br.com.ifba.gestaoanimal;
 
+import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
+import br.com.ifba.gestaoanimal.adocao.view.AdocaoListar;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.view.AnimalListar;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
@@ -17,13 +19,21 @@ public class GestaoanimalApplication {
 
         AnimalController animalController = context.getBean(AnimalController.class);
         PessoaController pessoaController = context.getBean(PessoaController.class);
-
+        AdocaoController adocaoController = context.getBean(AdocaoController.class);
+        
         SwingUtilities.invokeLater(() -> {
             AnimalListar telaAnimal = new AnimalListar(animalController);
             telaAnimal.setVisible(true);
 
             PessoaListar telaPessoa = new PessoaListar(pessoaController);
             telaPessoa.setVisible(true);
+            
+            AdocaoListar telaAdocao = new AdocaoListar(
+        adocaoController,
+        animalController,
+        pessoaController
+);
+            telaAdocao.setVisible(true);
         });
     }
 }
