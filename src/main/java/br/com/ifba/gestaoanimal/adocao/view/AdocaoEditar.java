@@ -112,6 +112,7 @@ public class AdocaoEditar extends javax.swing.JFrame {
     }
 
     private void salvar() {
+        
         if (cmbAnimal.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Selecione o animal.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
@@ -128,27 +129,54 @@ public class AdocaoEditar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione o status.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        adocao.setAnimal((Animal) cmbAnimal.getSelectedItem());
-        adocao.setAdotante((Pessoa) cmbAdotante.getSelectedItem());
-        adocao.setResponsavel((Pessoa) cmbResponsavel.getSelectedItem());
-        adocao.setStatus((StatusAdocaoEnum) cmbStatus.getSelectedItem());
+ 
+        Pessoa adotante = (Pessoa) cmbAdotante.getSelectedItem();
+        Pessoa responsavel = (Pessoa) cmbResponsavel.getSelectedItem();
+        StatusAdocaoEnum status = (StatusAdocaoEnum) cmbStatus.getSelectedItem();
+ 
+        
+        if (status == StatusAdocaoEnum.RECUSADA && txtMotivoRecusa.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o motivo da recusa.",
+                    "Campo obrigatorio", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+ 
+        
+        if ((status == StatusAdocaoEnum.CONCLUIDA|| status == StatusAdocaoEnum.RECUSADA)
+                && txtDataConclusao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a data de conclusao para este status.",
+                    "Campo obrigatorio", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+ 
+        adocao.setAdotante(adotante);
+        adocao.setResponsavel(responsavel);
+        adocao.setStatus(status);
         adocao.setObservacoesEntrevista(txtObs.getText().trim());
         adocao.setMotivoRecusa(txtMotivoRecusa.getText().trim());
-
+ 
         String dataConclusaoStr = txtDataConclusao.getText().trim();
         if (!dataConclusaoStr.isEmpty()) {
             try {
                 LocalDate data = LocalDate.parse(dataConclusaoStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+               
+                if (adocao.getDataAbertura() != null && data.isBefore(adocao.getDataAbertura())) {
+                    JOptionPane.showMessageDialog(this,
+                            "Data de conclusao nao pode ser anterior a data de abertura ("
+                            + adocao.getDataAbertura().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ").",
+                            "Data invalida", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 adocao.setDataConclusao(data);
             } catch (DateTimeParseException ex) {
-                JOptionPane.showMessageDialog(this, "Data de conclusão inválida. Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Data de conclusão inválida. Use o formato dd/MM/yyyy.",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
             adocao.setDataConclusao(null);
         }
-
+ 
         adocaoController.update(adocao);
         JOptionPane.showMessageDialog(this, "Adoção atualizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();
