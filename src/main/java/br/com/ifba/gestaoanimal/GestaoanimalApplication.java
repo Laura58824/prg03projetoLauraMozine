@@ -34,7 +34,7 @@ public class GestaoanimalApplication {
             AdocaoListar telaAdocao = new AdocaoListar(adocaoController, animalController, pessoaController);
             telaAdocao.setVisible(true);
 
-            RegistroSaudeListar telaRegistroSaude = new RegistroSaudeListar(registroSaudeController, animalController);
+            RegistroSaudeListar telaRegistroSaude = new RegistroSaudeListar(registroSaudeController, animalController, pessoaController);
             telaRegistroSaude.setVisible(true);
         });
     }

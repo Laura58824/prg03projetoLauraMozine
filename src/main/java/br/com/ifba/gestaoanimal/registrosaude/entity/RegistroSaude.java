@@ -3,6 +3,7 @@ package br.com.ifba.gestaoanimal.registrosaude.entity;
 import br.com.ifba.gestaoanimal.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
+import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,8 +30,9 @@ public class RegistroSaude extends PersistenceEntity {
     @Column(name = "data_proxima_dose")
     private LocalDate dataProximaDose;
 
-    @Column(name = "responsavel")
-    private String responsavel;
+    @ManyToOne
+    @JoinColumn(name = "responsavel_id", nullable = true)
+    private Pessoa responsavel;
 
     @Column(name = "observacoes")
     private String observacoes;

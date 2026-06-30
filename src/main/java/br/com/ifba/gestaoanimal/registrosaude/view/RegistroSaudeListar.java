@@ -3,7 +3,9 @@ package br.com.ifba.gestaoanimal.registrosaude.view;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
+import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
+import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -19,16 +21,18 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroSaudeListar.class.getName());
     private DefaultTableModel tableModel;
     private List<RegistroSaude> registros;
- 
+    private final PessoaController pessoaController;
     private final RegistroSaudeController registroSaudeController;
     private final AnimalController animalController;
  
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
  
     public RegistroSaudeListar(RegistroSaudeController registroSaudeController,
-                               AnimalController animalController) {
+                               AnimalController animalController,
+                               PessoaController pessoaController) {
         this.registroSaudeController = registroSaudeController;
         this.animalController = animalController;
+        this.pessoaController = pessoaController;
         initComponents();
         configurarTabela();
         carregarTabela();
@@ -153,20 +157,20 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
         filtrarTabela();
     }
  
-    private void filtrarTabela() {
+        private void filtrarTabela() {
         String busca = txtBusca.getText().trim().toLowerCase();
         String tipoSelecionado = cmbFiltroTipo.getSelectedItem().toString();
- 
+
         tableModel.setRowCount(0);
- 
+
         for (RegistroSaude r : registros) {
             boolean atendeBusca = busca.isEmpty()
                     || (r.getAnimal() != null && r.getAnimal().getNome().toLowerCase().contains(busca))
-                    || (r.getResponsavel() != null && r.getResponsavel().toLowerCase().contains(busca));
- 
+                    || (r.getResponsavel() != null && r.getResponsavel().getNome().toLowerCase().contains(busca));
+
             boolean atendeTipo = "Todos os tipos".equals(tipoSelecionado)
                     || (r.getTipo() != null && r.getTipo().toString().equals(tipoSelecionado));
- 
+
             if (atendeBusca && atendeTipo) {
                 tableModel.addRow(new Object[]{
                     r.getId(),
@@ -174,14 +178,14 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
                     r.getTipo(),
                     r.getDataRealizacao() != null ? r.getDataRealizacao().format(FMT) : "",
                     r.getDataProximaDose() != null ? r.getDataProximaDose().format(FMT) : "",
-                    r.getResponsavel() != null ? r.getResponsavel() : ""
+                    r.getResponsavel() != null ? r.getResponsavel().getNome() : ""
                 });
             }
         }
     }
- 
+
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
-        
+         new RegistroSaudeCadastrar(registroSaudeController, animalController, pessoaController, this).setVisible(true);
     }
  
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {
