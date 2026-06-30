@@ -6,6 +6,8 @@ import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.view.AnimalListar;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.view.PessoaListar;
+import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
+import br.com.ifba.gestaoanimal.registrosaude.view.RegistroSaudeListar;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -20,20 +22,20 @@ public class GestaoanimalApplication {
         AnimalController animalController = context.getBean(AnimalController.class);
         PessoaController pessoaController = context.getBean(PessoaController.class);
         AdocaoController adocaoController = context.getBean(AdocaoController.class);
-        
+        RegistroSaudeController registroSaudeController = context.getBean(RegistroSaudeController.class);
+
         SwingUtilities.invokeLater(() -> {
             AnimalListar telaAnimal = new AnimalListar(animalController);
             telaAnimal.setVisible(true);
 
             PessoaListar telaPessoa = new PessoaListar(pessoaController);
             telaPessoa.setVisible(true);
-            
-            AdocaoListar telaAdocao = new AdocaoListar(
-        adocaoController,
-        animalController,
-        pessoaController
-);
+
+            AdocaoListar telaAdocao = new AdocaoListar(adocaoController, animalController, pessoaController);
             telaAdocao.setVisible(true);
+
+            RegistroSaudeListar telaRegistroSaude = new RegistroSaudeListar(registroSaudeController, animalController);
+            telaRegistroSaude.setVisible(true);
         });
     }
 }

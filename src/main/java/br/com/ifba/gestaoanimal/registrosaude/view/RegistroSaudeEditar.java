@@ -4,6 +4,10 @@
  */
 package br.com.ifba.gestaoanimal.registrosaude.view;
 
+import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
+import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
+
 /**
  *
  * @author m
@@ -11,12 +15,22 @@ package br.com.ifba.gestaoanimal.registrosaude.view;
 public class RegistroSaudeEditar extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroSaudeEditar.class.getName());
-
+private final RegistroSaudeController registroSaudeController;
+private final AnimalController animalController;
+private final RegistroSaudeListar parent;
+private final RegistroSaude registro;
     /**
      * Creates new form GestaoAnimalEditar
      */
-    public RegistroSaudeEditar() {
-        initComponents();
+    public RegistroSaudeEditar(RegistroSaudeController registroSaudeController,
+                           AnimalController animalController,
+                           RegistroSaudeListar parent,
+                           RegistroSaude registro) {
+    this.registroSaudeController = registroSaudeController;
+    this.animalController = animalController;
+    this.parent = parent;
+    this.registro = registro;
+    initComponents();
     }
 
     /**
@@ -66,7 +80,7 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RegistroSaudeEditar().setVisible(true));
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
