@@ -112,7 +112,26 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione o status.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
+        Pessoa adotante = (Pessoa) cmbAdotante.getSelectedItem();
+        Pessoa responsavel = (Pessoa) cmbResponsavel.getSelectedItem();
+        StatusAdocaoEnum status = (StatusAdocaoEnum) cmbStatus.getSelectedItem();
+ 
+       
+        if (status == StatusAdocaoEnum.RECUSADA && txtMotivoRecusa.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe o motivo da recusa.",
+                    "Campo obrigatorio", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+ 
+     
+        if ((status == StatusAdocaoEnum.CONCLUIDA || status == StatusAdocaoEnum.RECUSADA)
+                && txtDataConclusao.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Informe a data de conclusao para este status.",
+                    "Campo obrigatorio", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         Adocao adocao = new Adocao();
         adocao.setAnimal((Animal) cmbAnimal.getSelectedItem());
         adocao.setAdotante((Pessoa) cmbAdotante.getSelectedItem());
@@ -126,6 +145,11 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         if (!dataConclusaoStr.isEmpty()) {
             try {
                 LocalDate data = LocalDate.parse(dataConclusaoStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                if (data.isBefore(LocalDate.now())) {
+                    JOptionPane.showMessageDialog(this, "Data de conclusao nao pode ser anterior a hoje.",
+                        "Data invalida", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 adocao.setDataConclusao(data);
             } catch (DateTimeParseException ex) {
                 JOptionPane.showMessageDialog(this, "Data de conclusão inválida. Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
