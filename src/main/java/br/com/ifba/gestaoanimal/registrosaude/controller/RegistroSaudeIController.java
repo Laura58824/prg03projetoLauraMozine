@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package br.com.ifba.gestaoanimal.registrosaude.controller;
 
-/**
- *
- * @author m
- */
+import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
+import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
+import java.util.List;
+
 public interface RegistroSaudeIController {
-    
+
+    RegistroSaude save(RegistroSaude registroSaude);
+
+    RegistroSaude update(RegistroSaude registroSaude);
+
+    void delete(Long id);
+
+    List<RegistroSaude> findAll();
+
+    RegistroSaude findById(Long id);
+
+    List<RegistroSaude> findByAnimalId(Long animalId);
+
+    List<RegistroSaude> findByTipo(TipoProcedimentoEnum tipo);
 }
