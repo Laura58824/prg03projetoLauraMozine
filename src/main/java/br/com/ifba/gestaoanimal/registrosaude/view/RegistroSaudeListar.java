@@ -1,5 +1,5 @@
 package br.com.ifba.gestaoanimal.registrosaude.view;
- 
+
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
@@ -15,21 +15,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
- 
+
 public class RegistroSaudeListar extends javax.swing.JFrame {
- 
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroSaudeListar.class.getName());
     private DefaultTableModel tableModel;
     private List<RegistroSaude> registros;
     private final PessoaController pessoaController;
     private final RegistroSaudeController registroSaudeController;
     private final AnimalController animalController;
- 
+
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
- 
+
     public RegistroSaudeListar(RegistroSaudeController registroSaudeController,
-                               AnimalController animalController,
-                               PessoaController pessoaController) {
+            AnimalController animalController,
+            PessoaController pessoaController) {
         this.registroSaudeController = registroSaudeController;
         this.animalController = animalController;
         this.pessoaController = pessoaController;
@@ -37,27 +37,29 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
         configurarTabela();
         carregarTabela();
     }
- 
+
     private void configurarTabela() {
         tableModel = new DefaultTableModel(
-            new String[]{"ID", "Animal", "Tipo", "Data Realização", "Próxima Dose", "Responsável"}, 0
+                new String[]{"ID", "Animal", "Tipo", "Data Realização", "Próxima Dose", "Responsável"}, 0
         ) {
             @Override
-            public boolean isCellEditable(int row, int column) { return false; }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
- 
+
         tblRegistros.setModel(tableModel);
         tblRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tblRegistros.getTableHeader().setReorderingAllowed(false);
         tblRegistros.setRowHeight(24);
- 
+
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
         java.awt.Font fonteBold = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12);
- 
+
         tblRegistros.getTableHeader().setBackground(new java.awt.Color(60, 52, 137));
         tblRegistros.getTableHeader().setForeground(java.awt.Color.WHITE);
         tblRegistros.getTableHeader().setFont(fonteBold);
- 
+
         tblRegistros.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
             @Override
             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
@@ -78,64 +80,64 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
                 return this;
             }
         });
- 
+
         tblRegistros.getColumnModel().getColumn(0).setMinWidth(0);
         tblRegistros.getColumnModel().getColumn(0).setMaxWidth(0);
         tblRegistros.getColumnModel().getColumn(0).setWidth(0);
- 
+
         painelBotoes.setBackground(Color.WHITE);
- 
+
         btnNovo.setText(" Novo ");
         btnNovo.setForeground(new java.awt.Color(59, 109, 17));
         btnNovo.setBackground(java.awt.Color.WHITE);
         btnNovo.setFont(fonte);
         btnNovo.setOpaque(true);
         btnNovo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(59, 109, 17), 1, true));
- 
+
         btnEditar.setText(" Editar ");
         btnEditar.setForeground(new java.awt.Color(60, 52, 137));
         btnEditar.setBackground(java.awt.Color.WHITE);
         btnEditar.setFont(fonte);
         btnEditar.setOpaque(true);
         btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 52, 137), 1, true));
- 
+
         btnExcluir.setText(" Excluir ");
         btnExcluir.setForeground(new java.awt.Color(163, 45, 45));
         btnExcluir.setBackground(java.awt.Color.WHITE);
         btnExcluir.setFont(fonte);
         btnExcluir.setOpaque(true);
         btnExcluir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 45, 45), 1, true));
- 
+
         btnAtualizar.setText(" Atualizar ");
         btnAtualizar.setForeground(new java.awt.Color(80, 80, 80));
         btnAtualizar.setBackground(java.awt.Color.WHITE);
         btnAtualizar.setFont(fonte);
         btnAtualizar.setOpaque(true);
         btnAtualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
- 
+
         painelBarra.setBackground(new java.awt.Color(60, 52, 137));
         painelBarra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
- 
+
         JLabel lblTitulo = new JLabel("SOSPatas - Registros de Saúde");
         lblTitulo.setForeground(java.awt.Color.WHITE);
         lblTitulo.setFont(new java.awt.Font("Palatino Linotype", java.awt.Font.BOLD, 20));
         painelBarra.add(lblTitulo);
- 
+
         tblRegistros.setFont(fonte);
- 
+
         java.awt.Dimension tamanhoBotao = new java.awt.Dimension(110, 32);
         btnNovo.setPreferredSize(tamanhoBotao);
         btnEditar.setPreferredSize(tamanhoBotao);
         btnExcluir.setPreferredSize(tamanhoBotao);
         btnAtualizar.setPreferredSize(tamanhoBotao);
- 
+
         String[] opcoes = Stream.concat(
-            Stream.of("Todos os tipos"),
-            Arrays.stream(TipoProcedimentoEnum.values()).map(TipoProcedimentoEnum::toString)
+                Stream.of("Todos os tipos"),
+                Arrays.stream(TipoProcedimentoEnum.values()).map(TipoProcedimentoEnum::toString)
         ).toArray(String[]::new);
         cmbFiltroTipo.setModel(new javax.swing.DefaultComboBoxModel<>(opcoes));
         cmbFiltroTipo.setFont(fonte);
- 
+
         txtBusca.setFont(fonte);
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -143,21 +145,21 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
                 filtrarTabela();
             }
         });
- 
+
         cmbFiltroTipo.addActionListener(e -> filtrarTabela());
- 
+
         btnNovo.addActionListener(this::btnNovoActionPerformed);
         btnEditar.addActionListener(this::btnEditarActionPerformed);
         btnExcluir.addActionListener(this::btnExcluirActionPerformed);
         btnAtualizar.addActionListener(this::btnAtualizarActionPerformed);
     }
- 
+
     public void carregarTabela() {
         registros = registroSaudeController.findAll();
         filtrarTabela();
     }
- 
-        private void filtrarTabela() {
+
+    private void filtrarTabela() {
         String busca = txtBusca.getText().trim().toLowerCase();
         String tipoSelecionado = cmbFiltroTipo.getSelectedItem().toString();
 
@@ -185,34 +187,35 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
     }
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
-         new RegistroSaudeCadastrar(registroSaudeController, animalController, pessoaController, this).setVisible(true);
+        new RegistroSaudeCadastrar(registroSaudeController, animalController, pessoaController, this).setVisible(true);
     }
- 
+
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {
         int linha = tblRegistros.getSelectedRow();
         if (linha == -1) {
             JOptionPane.showMessageDialog(this, "Selecione um registro para editar.",
-                "Nenhum selecionado", JOptionPane.WARNING_MESSAGE);
+                    "Nenhum selecionado", JOptionPane.WARNING_MESSAGE);
             return;
         }
         Long id = (Long) tableModel.getValueAt(linha, 0);
         RegistroSaude registro = registros.stream()
                 .filter(r -> r.getId().equals(id)).findFirst().orElse(null);
-        if (registro != null)
-            new RegistroSaudeEditar(registroSaudeController, animalController, this, registro).setVisible(true);
+        if (registro != null) {
+            new RegistroSaudeEditar(registroSaudeController, animalController, pessoaController, this, registro).setVisible(true);
+        }
     }
- 
+
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {
         int linha = tblRegistros.getSelectedRow();
         if (linha == -1) {
             JOptionPane.showMessageDialog(this, "Selecione um registro para excluir.",
-                "Nenhum selecionado", JOptionPane.WARNING_MESSAGE);
+                    "Nenhum selecionado", JOptionPane.WARNING_MESSAGE);
             return;
         }
         Long id = (Long) tableModel.getValueAt(linha, 0);
         int ok = JOptionPane.showConfirmDialog(this,
-            "Excluir o registro ID: " + id + "?",
-            "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                "Excluir o registro ID: " + id + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (ok == JOptionPane.YES_OPTION) {
             try {
                 registroSaudeController.delete(id);
@@ -223,12 +226,11 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
             }
         }
     }
- 
+
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
         carregarTabela();
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -338,7 +340,6 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  
     public static void main(String args[]) {
     }
 

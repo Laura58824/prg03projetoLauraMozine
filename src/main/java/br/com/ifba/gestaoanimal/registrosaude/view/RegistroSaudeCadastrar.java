@@ -1,11 +1,10 @@
 package br.com.ifba.gestaoanimal.registrosaude.view;
- 
+
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
 import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
-import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,12 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
- 
+
 public class RegistroSaudeCadastrar extends javax.swing.JFrame {
- 
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroSaudeCadastrar.class.getName());
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    
 
     private final RegistroSaudeController registroSaudeController;
     private final AnimalController animalController;
@@ -27,9 +25,9 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
     private final RegistroSaudeListar parent;
 
     public RegistroSaudeCadastrar(RegistroSaudeController registroSaudeController,
-                                  AnimalController animalController,
-                                  PessoaController pessoaController,
-                                  RegistroSaudeListar parent) {
+            AnimalController animalController,
+            PessoaController pessoaController,
+            RegistroSaudeListar parent) {
         this.registroSaudeController = registroSaudeController;
         this.animalController = animalController;
         this.pessoaController = pessoaController;
@@ -38,13 +36,12 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         configurarTela();
     }
 
-        private void configurarTela() {
+    private void configurarTela() {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SOSPatas — Novo Registro de Saúde");
         setLocationRelativeTo(null);
 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
-
 
         painelBarra.setBackground(new java.awt.Color(60, 52, 137));
         painelBarra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
@@ -53,8 +50,7 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Palatino Linotype", java.awt.Font.BOLD, 20));
         painelBarra.add(lblTitulo);
 
-
-       cmbAnimal.setModel(new DefaultComboBoxModel<>(animalController.findAll().toArray(Animal[]::new)));
+        cmbAnimal.setModel(new DefaultComboBoxModel<>(animalController.findAll().toArray(Animal[]::new)));
         cmbAnimal.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list,
@@ -90,7 +86,6 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         txtaDescricao.setFont(fonte);
         txtaObservacoes.setFont(fonte);
 
-
         btnCadastrar.setText(" Cadastrar ");
         btnCadastrar.setForeground(new java.awt.Color(59, 109, 17));
         btnCadastrar.setBackground(java.awt.Color.WHITE);
@@ -107,10 +102,8 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
         btnCancelar.setPreferredSize(new java.awt.Dimension(110, 32));
 
-
         txtDataRealizacao.setToolTipText("dd/MM/yyyy");
         txtProximaDose.setToolTipText("dd/MM/yyyy (opcional)");
-
 
         btnCadastrar.addActionListener(this::btnCadastrarActionPerformed);
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
@@ -118,18 +111,18 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
 
     private void salvar() {
         if (cmbAnimal.getSelectedItem() == null) {
-         JOptionPane.showMessageDialog(this, "Selecione o animal.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
-         return;
+            JOptionPane.showMessageDialog(this, "Selecione o animal.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         if (cmbProcedimento.getSelectedItem() == null) {
-             JOptionPane.showMessageDialog(this, "Selecione o tipo de procedimento.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
-             return;
+            JOptionPane.showMessageDialog(this, "Selecione o tipo de procedimento.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         if (txtDataRealizacao.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Informe a data de realização.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
         }
- 
+
         LocalDate dataRealizacao;
         try {
             dataRealizacao = LocalDate.parse(txtDataRealizacao.getText().trim(), FMT);
@@ -137,7 +130,7 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data de realização inválida. Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
- 
+
         RegistroSaude registro = new RegistroSaude();
         registro.setAnimal((Animal) cmbAnimal.getSelectedItem());
         registro.setTipo((TipoProcedimentoEnum) cmbProcedimento.getSelectedItem());
@@ -145,7 +138,7 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         registro.setDescricao(txtaDescricao.getText().trim().isEmpty() ? null : txtaDescricao.getText().trim());
         registro.setObservacoes(txtaObservacoes.getText().trim().isEmpty() ? null : txtaObservacoes.getText().trim());
         registro.setResponsavel((Pessoa) cmbResponsavel.getSelectedItem());
-        
+
         String proximaDoseStr = txtProximaDose.getText().trim();
         if (!proximaDoseStr.isEmpty()) {
             try {
@@ -160,21 +153,21 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
                 return;
             }
         }
- 
+
         registroSaudeController.save(registro);
         JOptionPane.showMessageDialog(this, "Registro cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();
         dispose();
     }
- 
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
         salvar();
     }
- 
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
     }
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -315,8 +308,8 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public static void main(String args[]) {}
+    public static void main(String args[]) {
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
