@@ -34,7 +34,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
     }
 
     private void configurarTela() {
-        setTitle("PatasSalvas — cadastrar animal");
+        setTitle("SOSPatas — cadastrar animal");
         setLocationRelativeTo(null);
 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);

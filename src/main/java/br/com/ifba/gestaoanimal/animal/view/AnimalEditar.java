@@ -30,7 +30,7 @@ public class AnimalEditar extends javax.swing.JFrame {
  
     private void configurarTela() {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("PatasSalvas — editar animal");
+        setTitle("SOSPatas — editar animal");
         setLocationRelativeTo(null);
  
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
@@ -53,7 +53,7 @@ public class AnimalEditar extends javax.swing.JFrame {
         btnSalvar.setFont(fonte);
         btnCancelar.setFont(fonte);
  
-        btnSalvar.setText("✔ Salvar alterações");
+        btnSalvar.setText("Salvar alterações");
         btnSalvar.setForeground(new java.awt.Color(60, 52, 137));
         btnSalvar.setBackground(java.awt.Color.WHITE);
         btnSalvar.setOpaque(true);
