@@ -183,7 +183,7 @@ public class AdocaoListar extends javax.swing.JFrame {
         btnAtualizar = new javax.swing.JButton();
         painelBarra = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblAdocoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

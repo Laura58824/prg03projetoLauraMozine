@@ -173,7 +173,7 @@ private void configurarTabela() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAnimais = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SOSPatas - Listagem de animais");
 
         btnNovo.setText("Novo");

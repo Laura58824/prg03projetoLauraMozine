@@ -192,7 +192,7 @@ public class RegistroSaudeCadastrar extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
         cmbResponsavel = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
         painelBarra.setLayout(painelBarraLayout);

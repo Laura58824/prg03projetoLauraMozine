@@ -246,7 +246,7 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
         pane = new javax.swing.JScrollPane();
         tblRegistros = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout painelBarraLayout = new javax.swing.GroupLayout(painelBarra);
         painelBarra.setLayout(painelBarraLayout);

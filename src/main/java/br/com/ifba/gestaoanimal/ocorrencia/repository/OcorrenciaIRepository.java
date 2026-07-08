@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package br.com.ifba.gestaoanimal.ocorrencia.repository;
 
-/**
- *
- * @author m
- */
-public interface OcorrenciaIRepository {
+import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
+import br.com.ifba.gestaoanimal.enums.TipoOcorrenciaEnum;
+import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface OcorrenciaIRepository extends JpaRepository<Ocorrencia, Long> {
     
+    List<Ocorrencia> findByStatus(StatusOcorrenciaEnum status);
+    List<Ocorrencia> findByTipo(TipoOcorrenciaEnum tipo);
+    List<Ocorrencia> findByRegistradaPorId(Long pessoaId);
+    List<Ocorrencia> findByVoluntarioId(Long pessoaId);
 }

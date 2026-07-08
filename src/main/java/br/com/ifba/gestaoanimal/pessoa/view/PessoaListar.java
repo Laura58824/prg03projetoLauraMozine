@@ -140,7 +140,7 @@ public class PessoaListar extends javax.swing.JFrame {
         txtBusca = new javax.swing.JTextField();
         painelBarra = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblPessoas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
