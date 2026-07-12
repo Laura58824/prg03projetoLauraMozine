@@ -1,6 +1,6 @@
 
 package br.com.ifba.gestaoanimal.animal.view;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.enums.EspecieEnum;
 import br.com.ifba.gestaoanimal.enums.PorteEnum;
@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
 public class AnimalEditar extends javax.swing.JFrame {
     
  
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     private final AnimalListar parent;
     private final Animal animal;
  
-    public AnimalEditar(AnimalController animalController, AnimalListar parent, Animal animal) {
+    public AnimalEditar(AnimalIController animalController, AnimalListar parent, Animal animal) {
         this.animalController = animalController;
         this.parent = parent;
         this.animal = animal;

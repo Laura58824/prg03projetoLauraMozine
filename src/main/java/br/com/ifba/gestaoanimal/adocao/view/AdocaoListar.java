@@ -3,6 +3,7 @@ package br.com.ifba.gestaoanimal.adocao.view;
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import java.awt.Color;
 import java.util.List;
@@ -16,10 +17,10 @@ public class AdocaoListar extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AdocaoListar.class.getName());
     private DefaultTableModel tableModel;
     private final AdocaoController adocaoController;
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     private final PessoaController pessoaController;
 
-    public AdocaoListar(AdocaoController adocaoController, AnimalController animalController, PessoaController pessoaController) {
+    public AdocaoListar(AdocaoController adocaoController, AnimalIController animalController, PessoaController pessoaController) {
         this.adocaoController = adocaoController;
         this.animalController = animalController;
         this.pessoaController = pessoaController;

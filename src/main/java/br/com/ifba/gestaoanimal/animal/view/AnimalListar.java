@@ -2,23 +2,24 @@
 package br.com.ifba.gestaoanimal.animal.view;
 
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class AnimalListar extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AnimalListar.class.getName());
     private DefaultTableModel tableModel;
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     
-    public AnimalListar(AnimalController animalController) {
+    public AnimalListar(AnimalIController animalController) {
         this.animalController = animalController;
         initComponents();
         configurarTabela();
@@ -37,16 +38,16 @@ private void configurarTabela() {
     tblAnimais.getTableHeader().setReorderingAllowed(false);
     tblAnimais.setRowHeight(24);
 
-    // ── Fontes ──
+  
     java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
     java.awt.Font fonteBold = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12);
 
-    // ── Cabeçalho da tabela ──
+   
     tblAnimais.getTableHeader().setBackground(new java.awt.Color(60, 52, 137));
     tblAnimais.getTableHeader().setForeground(java.awt.Color.WHITE);
     tblAnimais.getTableHeader().setFont(fonteBold);
 
-    // ── Linhas alternadas + seleção roxa ──
+   
     tblAnimais.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
     @Override
             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
@@ -69,7 +70,7 @@ private void configurarTabela() {
         });
     
 
-    // ── Badge colorido na coluna Status ──
+   
     tblAnimais.getColumnModel().getColumn(6).setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
         @Override
         public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
@@ -90,10 +91,10 @@ private void configurarTabela() {
         }
     });
 
-    // ── Painel de botões ──
+ 
     painelBotoes.setBackground(Color.WHITE);
 
-    // ── Botões com borda colorida ──
+    
     btnNovo.setText(" Novo ");
     btnNovo.setForeground(new java.awt.Color(59, 109, 17));
     btnNovo.setBackground(java.awt.Color.WHITE);
@@ -122,11 +123,11 @@ private void configurarTabela() {
     btnAtualizar.setOpaque(true);
     btnAtualizar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
 
-    // ── Campo de busca ──
+    
    
        txtBusca.setFont(fonte);
 
-    // ── Título roxo no topo ──
+   
     painelBarra.setBackground(new java.awt.Color(60, 52, 137));
     painelBarra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
 
@@ -136,7 +137,7 @@ private void configurarTabela() {
 
     painelBarra.add(lblTitulo);
 
-    // ── Fonte da tabela ──
+   
     tblAnimais.setFont(fonte);
     
     java.awt.Dimension tamanhoBotao = new java.awt.Dimension(110, 32);

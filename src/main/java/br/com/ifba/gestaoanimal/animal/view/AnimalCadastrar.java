@@ -1,19 +1,15 @@
 package br.com.ifba.gestaoanimal.animal.view;
 
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.enums.EspecieEnum;
 import br.com.ifba.gestaoanimal.enums.PorteEnum;
 import br.com.ifba.gestaoanimal.enums.SexoEnum;
 import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
 import javax.swing.*;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-import javax.swing.JOptionPane;
 
-import java.time.LocalDate;
 
 import java.time.LocalDate;
 
@@ -23,10 +19,10 @@ import java.time.format.DateTimeParseException;
 
 public class AnimalCadastrar extends javax.swing.JFrame {
     
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     private final AnimalListar parent;
 
-    public AnimalCadastrar(AnimalController animalController, AnimalListar parent) {
+    public AnimalCadastrar(AnimalIController animalController, AnimalListar parent) {
         this.animalController = animalController;
         this.parent = parent;
         initComponents();
@@ -39,13 +35,13 @@ public class AnimalCadastrar extends javax.swing.JFrame {
 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
 
-        // ── Preenche os ComboBoxes com os enums ──
+      
         cmbEspecie.setModel(new DefaultComboBoxModel(EspecieEnum.values()));
         cmbSexo.setModel(new DefaultComboBoxModel(SexoEnum.values()));
         cmbPorte.setModel(new DefaultComboBoxModel(PorteEnum.values()));
         cmbStatus.setModel(new DefaultComboBoxModel(StatusAnimalEnum.values()));
         
-        // ── Fontes ──
+        
         txtNome.setFont(fonte);
         cmbEspecie.setFont(fonte);
         txtRaca.setFont(fonte);
@@ -59,26 +55,26 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         btnSalvar.setFont(fonte);
         btnCancelar.setFont(fonte);
 
-        // ── Botão Salvar ──
+        
         btnSalvar.setText("Salvar");
         btnSalvar.setForeground(new java.awt.Color(60, 52, 137));
         btnSalvar.setBackground(java.awt.Color.WHITE);
         btnSalvar.setOpaque(true);
         btnSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 52, 137), 1, true));
 
-        // ── Botão Cancelar ──
+       
         btnCancelar.setText("Cancelar");
         btnCancelar.setForeground(new java.awt.Color(80, 80, 80));
         btnCancelar.setBackground(java.awt.Color.WHITE);
         btnCancelar.setOpaque(true);
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
 
-        // ── Placeholder data ──
+        
         txtDataEntrada.setToolTipText("dd/MM/yyyy");
     }
 
     private void salvar() {
-        // ── Validação dos campos obrigatórios ──
+        
         if (txtNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O nome é obrigatório.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
@@ -96,7 +92,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
             return;
         }
 
-        // ── Monta o objeto Animal ──
+        
         Animal animal = new Animal();
         animal.setNome(txtNome.getText().trim());
         animal.setEspecie((EspecieEnum) cmbEspecie.getSelectedItem());
@@ -109,7 +105,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         animal.setNecessidadesEspeciais(txtNecessidades.getText().trim());
         animal.setAtivo(true);
 
-        // ── Data de entrada ──
+       
         String dataStr = txtDataEntrada.getText().trim();
         if (!dataStr.isEmpty()) {
             try {
@@ -123,7 +119,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
             animal.setDataEntrada(LocalDate.now());
         }
 
-        // ── Salva e fecha ──
+       
         animalController.save(animal);
         JOptionPane.showMessageDialog(this, "Animal cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();

@@ -1,6 +1,6 @@
 package br.com.ifba.gestaoanimal.registrosaude.view;
 
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
@@ -20,13 +20,13 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final RegistroSaudeController registroSaudeController;
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     private final PessoaController pessoaController;
     private final RegistroSaudeListar parent;
     private final RegistroSaude registro;
 
     public RegistroSaudeEditar(RegistroSaudeController registroSaudeController,
-            AnimalController animalController,
+            AnimalIController animalController,
             PessoaController pessoaController,
             RegistroSaudeListar parent,
             RegistroSaude registro) {

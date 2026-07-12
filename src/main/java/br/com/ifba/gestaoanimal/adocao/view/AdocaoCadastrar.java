@@ -2,7 +2,7 @@ package br.com.ifba.gestaoanimal.adocao.view;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
@@ -16,11 +16,11 @@ import javax.swing.JOptionPane;
 public class AdocaoCadastrar extends javax.swing.JFrame {
 
     private final AdocaoController adocaoController;
-    private final AnimalController animalController;
+    private final AnimalIController animalController;
     private final PessoaController pessoaController;
     private final AdocaoListar parent;
 
-    public AdocaoCadastrar(AdocaoController adocaoController, AnimalController animalController,
+    public AdocaoCadastrar(AdocaoController adocaoController, AnimalIController animalController,
             PessoaController pessoaController, AdocaoListar parent) {
         this.adocaoController = adocaoController;
         this.animalController = animalController;

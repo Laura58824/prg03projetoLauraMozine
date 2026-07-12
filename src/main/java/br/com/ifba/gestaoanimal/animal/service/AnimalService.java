@@ -54,7 +54,6 @@ public class AnimalService implements AnimalIService {
      }
 
 
-
         @Override
      public List<Animal> findAll() {
          return animalRepository.findByAtivoTrue();
