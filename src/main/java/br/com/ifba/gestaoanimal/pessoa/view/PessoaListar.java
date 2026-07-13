@@ -3,6 +3,7 @@ package br.com.ifba.gestaoanimal.pessoa.view;
  
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
+import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ public class PessoaListar extends javax.swing.JFrame {
         initComponents();
         configurarTabela();
         carregarTabela();
+        aplicarPermissoes();
     }
  
     private void configurarTabela() {
@@ -125,6 +127,12 @@ public class PessoaListar extends javax.swing.JFrame {
                     ? p.getDataCadastro().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : ""
             });
         }
+    }
+    
+    private void aplicarPermissoes() {
+        btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_PESSOA"));
+        btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_PESSOA"));
+        btnDesativar.setVisible(SessaoUsuario.temPermissao("DESATIVAR_PESSOA"));
     }
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

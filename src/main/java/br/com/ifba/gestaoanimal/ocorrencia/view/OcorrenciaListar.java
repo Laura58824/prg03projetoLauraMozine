@@ -4,6 +4,7 @@ import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
+import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -29,10 +30,14 @@ public class OcorrenciaListar extends javax.swing.JFrame {
         this.ocorrenciaController = ocorrenciaController;
         this.pessoaController = pessoaController;
         initComponents();
-        
+         aplicarPermissoes();
     }
 
-    
+    private void aplicarPermissoes() {
+        btnCadastrar.setVisible(SessaoUsuario.temPermissao("CADASTRAR_OCORRENCIA"));
+        btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_OCORRENCIA"));
+        btnExcluir.setVisible(SessaoUsuario.temPermissao("DESATIVAR_OCORRENCIA"));
+}
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

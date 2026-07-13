@@ -5,6 +5,7 @@ import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
+import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
@@ -27,6 +28,7 @@ public class AdocaoListar extends javax.swing.JFrame {
         initComponents();
         configurarTabela();
         carregarTabela();
+        aplicarPermissoes();
     }
 
     private void configurarTabela() {
@@ -168,6 +170,12 @@ public class AdocaoListar extends javax.swing.JFrame {
 
         }
     }
+}
+    
+    private void aplicarPermissoes() {
+        btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_ADOCAO"));
+        btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_ADOCAO"));
+        btnExcluir.setVisible(SessaoUsuario.temPermissao("DESATIVAR_ADOCAO"));
 }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

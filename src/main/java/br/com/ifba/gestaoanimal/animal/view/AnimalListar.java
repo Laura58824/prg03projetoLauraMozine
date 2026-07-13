@@ -4,6 +4,7 @@ package br.com.ifba.gestaoanimal.animal.view;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
+import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ public class AnimalListar extends javax.swing.JFrame {
         initComponents();
         configurarTabela();
         carregarTabela();
+        aplicarPermissoes();
     }
    
 private void configurarTabela() {
@@ -159,6 +161,11 @@ private void configurarTabela() {
             });
         }
     }
+    private void aplicarPermissoes() {
+    btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_ANIMAL"));
+    btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_ANIMAL"));
+    btnDesativar.setVisible(SessaoUsuario.temPermissao("DESATIVAR_ANIMAL"));
+}
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

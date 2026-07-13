@@ -7,6 +7,7 @@ import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
+import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -37,6 +38,7 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
         initComponents();
         configurarTabela();
         carregarTabela();
+        aplicarPermissoes();
     }
 
     private void configurarTabela() {
@@ -231,7 +233,11 @@ public class RegistroSaudeListar extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {
         carregarTabela();
     }
-
+     private void aplicarPermissoes() {
+    btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_REGISTRO_SAUDE"));
+    btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_REGISTRO_SAUDE"));
+    btnExcluir.setVisible(SessaoUsuario.temPermissao("DESATIVAR_REGISTRO_SAUDE"));
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

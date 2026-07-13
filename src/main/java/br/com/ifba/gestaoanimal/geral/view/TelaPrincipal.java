@@ -55,6 +55,7 @@ public TelaPrincipal(AnimalIController animalController,
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         painelMenu.setBackground(new java.awt.Color(60, 52, 137));
+        painelMenu.setForeground(new java.awt.Color(255, 255, 255));
         painelMenu.setToolTipText("");
 
         btnAnimais.setBackground(new java.awt.Color(60, 52, 137));
@@ -92,6 +93,8 @@ public TelaPrincipal(AnimalIController animalController,
         btnSair.setFocusPainted(false);
         btnSair.addActionListener(this::btnSairActionPerformed);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("SOSPatas- Menu Principal");
 
         javax.swing.GroupLayout painelMenuLayout = new javax.swing.GroupLayout(painelMenu);
@@ -103,11 +106,15 @@ public TelaPrincipal(AnimalIController animalController,
                     .addGroup(painelMenuLayout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addGroup(painelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSair)
                             .addComponent(btnOcorrencias)
                             .addComponent(btnRegistroSaude)
+                            .addGroup(painelMenuLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(btnAnimais))
                             .addComponent(btnPessoas)
-                            .addComponent(btnAnimais)))
+                            .addGroup(painelMenuLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(btnSair))))
                     .addGroup(painelMenuLayout.createSequentialGroup()
                         .addGap(54, 54, 54)
                         .addComponent(jLabel1)))
@@ -120,15 +127,15 @@ public TelaPrincipal(AnimalIController animalController,
                 .addComponent(jLabel1)
                 .addGap(46, 46, 46)
                 .addComponent(btnAnimais)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(30, 30, 30)
                 .addComponent(btnPessoas)
-                .addGap(48, 48, 48)
+                .addGap(30, 30, 30)
                 .addComponent(btnRegistroSaude)
-                .addGap(48, 48, 48)
+                .addGap(31, 31, 31)
                 .addComponent(btnOcorrencias)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
                 .addComponent(btnSair)
-                .addGap(20, 20, 20))
+                .addGap(106, 106, 106))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,7 +145,7 @@ public TelaPrincipal(AnimalIController animalController,
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(429, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
