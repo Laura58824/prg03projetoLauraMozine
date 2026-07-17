@@ -1,10 +1,8 @@
 package br.com.ifba.gestaoanimal.registrosaude.view;
 
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.registrosaude.entity.RegistroSaude;
-import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import br.com.ifba.gestaoanimal.enums.TipoProcedimentoEnum;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;

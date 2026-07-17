@@ -38,6 +38,7 @@ public class OcorrenciaListar extends javax.swing.JFrame {
         btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_OCORRENCIA"));
         btnExcluir.setVisible(SessaoUsuario.temPermissao("DESATIVAR_OCORRENCIA"));
 }
+    
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

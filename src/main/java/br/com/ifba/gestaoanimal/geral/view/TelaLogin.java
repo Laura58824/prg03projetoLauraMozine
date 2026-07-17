@@ -3,7 +3,7 @@ package br.com.ifba.gestaoanimal.geral.view;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.usuario.controller.UsuarioIController;
@@ -18,22 +18,26 @@ public class TelaLogin extends javax.swing.JFrame {
     private final PessoaController pessoaController;
     private final AdocaoController adocaoController;
     private final RegistroSaudeController registroSaudeController;
-
-    public TelaLogin(UsuarioIController usuarioController,
+    private final OcorrenciaController ocorrenciaController;
+    
+     public TelaLogin(UsuarioIController usuarioController,
                       AnimalIController animalController,
                       PessoaController pessoaController,
                       AdocaoController adocaoController,
-                      RegistroSaudeController registroSaudeController) {
-
+                      RegistroSaudeController registroSaudeController,
+                      OcorrenciaController ocorrenciaController) {
+ 
         this.usuarioController = usuarioController;
         this.animalController = animalController;
         this.pessoaController = pessoaController;
         this.adocaoController = adocaoController;
         this.registroSaudeController = registroSaudeController;
-
+        this.ocorrenciaController = ocorrenciaController;
+ 
         initComponents();
         this.setLocationRelativeTo(null);
     }
+ 
 
    
     @SuppressWarnings("unchecked")

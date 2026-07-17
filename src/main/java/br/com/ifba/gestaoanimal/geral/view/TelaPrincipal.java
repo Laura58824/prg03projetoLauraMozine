@@ -9,6 +9,8 @@ import br.com.ifba.gestaoanimal.adocao.view.AdocaoListar;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.view.AnimalListar;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
+import br.com.ifba.gestaoanimal.ocorrencia.view.OcorrenciaListar;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.view.PessoaListar;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
@@ -174,8 +176,9 @@ public TelaPrincipal(AnimalIController animalController,
     }//GEN-LAST:event_btnRegistroSaudeActionPerformed
 
     private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
-        this.setVisible(false);
-    new AdocaoListar(adocaoController, animalController, pessoaController).setVisible(true);
+       this.setVisible(false);
+    OcorrenciaController ocorrenciaController = null;
+    new OcorrenciaListar(ocorrenciaController, pessoaController).setVisible(true);
     }//GEN-LAST:event_btnOcorrenciasActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
