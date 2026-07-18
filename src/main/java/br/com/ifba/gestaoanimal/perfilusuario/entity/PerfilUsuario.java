@@ -26,7 +26,7 @@ public class PerfilUsuario extends PersistenceEntity {
     @Column(name = "descricao", nullable = false)
     private String descricao;
  
-    @Column(name = "permissoes")
+    @Column(name = "permissoes", columnDefinition = "TEXT")
     private String permissoes; 
  
 }

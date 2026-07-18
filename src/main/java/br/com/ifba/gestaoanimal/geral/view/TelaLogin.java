@@ -1,16 +1,16 @@
-
 package br.com.ifba.gestaoanimal.geral.view;
-
+ 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
+import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
 import br.com.ifba.gestaoanimal.usuario.controller.UsuarioIController;
 import br.com.ifba.gestaoanimal.usuario.entity.Usuario;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
-
-
+ 
+ 
 public class TelaLogin extends javax.swing.JFrame {
     
     private final UsuarioIController usuarioController;
@@ -19,8 +19,8 @@ public class TelaLogin extends javax.swing.JFrame {
     private final AdocaoController adocaoController;
     private final RegistroSaudeController registroSaudeController;
     private final OcorrenciaController ocorrenciaController;
-    
-     public TelaLogin(UsuarioIController usuarioController,
+ 
+    public TelaLogin(UsuarioIController usuarioController,
                       AnimalIController animalController,
                       PessoaController pessoaController,
                       AdocaoController adocaoController,
@@ -105,27 +105,28 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         String login = txtLogin.getText().trim();
         String senha = new String(txtSenha.getPassword());
-
+ 
         if (login.isEmpty() || senha.isEmpty()) {
             lblErro.setText("Preencha login e senha.");
             return;
         }
-
+ 
         Usuario usuario = usuarioController.autenticar(login, senha);
-
+ 
         if (usuario == null) {
             lblErro.setText("Login ou senha inválidos.");
             txtSenha.setText("");
             return;
         }
-
+ 
         SessaoUsuario.login(usuario);
-
+ 
         TelaPrincipal telaPrincipal = new TelaPrincipal(
                 animalController,
                 pessoaController,
                 adocaoController,
-                registroSaudeController
+                registroSaudeController,
+                ocorrenciaController
         );
         telaPrincipal.setVisible(true);
         this.dispose();

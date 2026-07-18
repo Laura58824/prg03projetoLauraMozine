@@ -26,20 +26,24 @@ private final AnimalIController animalController;
 private final PessoaController pessoaController;
 private final AdocaoController adocaoController;
 private final RegistroSaudeController registroSaudeController;
+private final OcorrenciaController ocorrenciaController;
 
 public TelaPrincipal(AnimalIController animalController,
                       PessoaController pessoaController,
                       AdocaoController adocaoController,
-                      RegistroSaudeController registroSaudeController) {
+                      RegistroSaudeController registroSaudeController,
+                      OcorrenciaController ocorrenciaController) {
     this.animalController = animalController;
     this.pessoaController = pessoaController;
     this.adocaoController = adocaoController;
     this.registroSaudeController = registroSaudeController;
-
+    this.ocorrenciaController = ocorrenciaController;
+ 
     initComponents();
     this.setLocationRelativeTo(null);
     this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 }
+ 
 
    
     @SuppressWarnings("unchecked")
@@ -176,9 +180,8 @@ public TelaPrincipal(AnimalIController animalController,
     }//GEN-LAST:event_btnRegistroSaudeActionPerformed
 
     private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
-       this.setVisible(false);
-    OcorrenciaController ocorrenciaController = null;
-    new OcorrenciaListar(ocorrenciaController, pessoaController).setVisible(true);
+    this.setVisible(false);
+   new OcorrenciaListar(ocorrenciaController, pessoaController).setVisible(true);
     }//GEN-LAST:event_btnOcorrenciasActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
