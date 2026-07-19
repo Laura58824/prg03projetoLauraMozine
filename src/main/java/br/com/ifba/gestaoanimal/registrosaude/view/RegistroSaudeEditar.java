@@ -1,5 +1,5 @@
 package br.com.ifba.gestaoanimal.registrosaude.view;
-
+ 
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
@@ -13,18 +13,18 @@ import java.time.format.DateTimeParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+ 
 public class RegistroSaudeEditar extends javax.swing.JFrame {
-
+ 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistroSaudeEditar.class.getName());
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+ 
     private final RegistroSaudeController registroSaudeController;
     private final AnimalIController animalController;
     private final PessoaController pessoaController;
     private final RegistroSaudeListar parent;
     private final RegistroSaude registro;
-
+ 
     public RegistroSaudeEditar(RegistroSaudeController registroSaudeController,
             AnimalIController animalController,
             PessoaController pessoaController,
@@ -39,49 +39,49 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         configurarTela();
         preencherCampos();
     }
-
+ 
     private void configurarTela() {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SOSPatas — Editar Registro de Saúde");
         setLocationRelativeTo(null);
-
+ 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
-
+ 
         painelBarra.setBackground(new java.awt.Color(60, 52, 137));
         painelBarra.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 10));
         JLabel lblTitulo = new JLabel("SOSPatas - Editar Registro de Saúde");
         lblTitulo.setForeground(java.awt.Color.WHITE);
         lblTitulo.setFont(new java.awt.Font("Palatino Linotype", java.awt.Font.BOLD, 20));
         painelBarra.add(lblTitulo);
-
+ 
         cmbAnimal.setModel(new DefaultComboBoxModel<>(animalController.findAll().toArray(Animal[]::new)));
         cmbAnimal.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list,
                     Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                super.getListCellRendererComponent(list, null, index, isSelected, cellHasFocus);
                 if (value instanceof Animal animal) {
                     setText(animal.getNome());
                 }
                 return this;
             }
         });
-
+ 
         cmbProcedimento.setModel(new DefaultComboBoxModel<>(TipoProcedimentoEnum.values()));
-
+ 
         cmbResponsavel.setModel(new DefaultComboBoxModel<>(pessoaController.findAll().toArray(Pessoa[]::new)));
         cmbResponsavel.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list,
                     Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                super.getListCellRendererComponent(list, null, index, isSelected, cellHasFocus);
                 if (value instanceof Pessoa pessoa) {
                     setText(pessoa.getNome());
                 }
                 return this;
             }
         });
-
+ 
         cmbAnimal.setFont(fonte);
         cmbProcedimento.setFont(fonte);
         cmbResponsavel.setFont(fonte);
@@ -89,7 +89,7 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         txtProximaDose.setFont(fonte);
         txtaDescricao.setFont(fonte);
         txtaObservacoes.setFont(fonte);
-
+ 
         btnCadastrar.setText(" Salvar ");
         btnCadastrar.setForeground(new java.awt.Color(59, 109, 17));
         btnCadastrar.setBackground(java.awt.Color.WHITE);
@@ -97,7 +97,7 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         btnCadastrar.setOpaque(true);
         btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(59, 109, 17), 1, true));
         btnCadastrar.setPreferredSize(new java.awt.Dimension(110, 32));
-
+ 
         btnCancelar.setText(" Cancelar ");
         btnCancelar.setForeground(new java.awt.Color(80, 80, 80));
         btnCancelar.setBackground(java.awt.Color.WHITE);
@@ -105,19 +105,19 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         btnCancelar.setOpaque(true);
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
         btnCancelar.setPreferredSize(new java.awt.Dimension(110, 32));
-
+ 
         txtDataRealizacao.setToolTipText("dd/MM/yyyy");
         txtProximaDose.setToolTipText("dd/MM/yyyy (opcional)");
-
+ 
         btnCadastrar.addActionListener(this::btnCadastrarActionPerformed);
         btnCancelar.addActionListener(this::btnCancelarActionPerformed);
     }
-
+ 
     private void preencherCampos() {
         cmbAnimal.setSelectedItem(registro.getAnimal());
         cmbProcedimento.setSelectedItem(registro.getTipo());
         cmbResponsavel.setSelectedItem(registro.getResponsavel());
-
+ 
         if (registro.getDataRealizacao() != null) {
             txtDataRealizacao.setText(registro.getDataRealizacao().format(FMT));
         }
@@ -127,7 +127,7 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         txtaDescricao.setText(registro.getDescricao() != null ? registro.getDescricao() : "");
         txtaObservacoes.setText(registro.getObservacoes() != null ? registro.getObservacoes() : "");
     }
-
+ 
     private void salvar() {
         if (cmbAnimal.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Selecione o animal.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
@@ -141,7 +141,7 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Informe a data de realização.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+ 
         LocalDate dataRealizacao;
         try {
             dataRealizacao = LocalDate.parse(txtDataRealizacao.getText().trim(), FMT);
@@ -149,14 +149,14 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data de realização inválida. Use o formato dd/MM/yyyy.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+ 
         registro.setAnimal((Animal) cmbAnimal.getSelectedItem());
         registro.setTipo((TipoProcedimentoEnum) cmbProcedimento.getSelectedItem());
         registro.setDataRealizacao(dataRealizacao);
         registro.setResponsavel((Pessoa) cmbResponsavel.getSelectedItem());
         registro.setDescricao(txtaDescricao.getText().trim().isEmpty() ? null : txtaDescricao.getText().trim());
         registro.setObservacoes(txtaObservacoes.getText().trim().isEmpty() ? null : txtaObservacoes.getText().trim());
-
+ 
         String proximaDoseStr = txtProximaDose.getText().trim();
         if (!proximaDoseStr.isEmpty()) {
             try {
@@ -173,25 +173,26 @@ public class RegistroSaudeEditar extends javax.swing.JFrame {
         } else {
             registro.setDataProximaDose(null);
         }
-
+ 
         registroSaudeController.update(registro);
         JOptionPane.showMessageDialog(this, "Registro atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();
         dispose();
     }
-
+ 
     private void cancelar() {
         dispose();
     }
-
+ 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
         salvar();
     }
-
+ 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
         cancelar();
     }
-
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

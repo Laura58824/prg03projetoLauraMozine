@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.com.ifba.gestaoanimal.usuario.entity;
 
 import br.com.ifba.gestaoanimal.infrastructure.entity.PersistenceEntity;
@@ -18,11 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-/**
- *
- * @author m
- */
+
 
 @Data
 @NoArgsConstructor
@@ -48,6 +43,8 @@ public class Usuario extends PersistenceEntity{
     
     @OneToOne
     @JoinColumn(name = "pessoa_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Pessoa pessoa;
     
     @ManyToOne

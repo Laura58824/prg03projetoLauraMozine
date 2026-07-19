@@ -2,7 +2,6 @@ package br.com.ifba.gestaoanimal.adocao.view;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;

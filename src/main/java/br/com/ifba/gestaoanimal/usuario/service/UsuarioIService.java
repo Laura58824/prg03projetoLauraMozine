@@ -11,4 +11,5 @@ public interface UsuarioIService {
     List<Usuario> findByAtivoTrue();
     Usuario findById(Long id);
     Usuario autenticar(String login, String senha);
+    Usuario findByPessoaId(Long pessoaId);
 }

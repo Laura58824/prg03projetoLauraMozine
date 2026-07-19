@@ -1,9 +1,9 @@
 package br.com.ifba.gestaoanimal.ocorrencia.view;
 
-import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
@@ -20,12 +20,12 @@ public class OcorrenciaListar extends javax.swing.JFrame {
  private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(OcorrenciaListar.class.getName());
     private DefaultTableModel tableModel;
     private List<Ocorrencia> ocorrencias;
-    private final OcorrenciaController ocorrenciaController;
+    private final OcorrenciaIController ocorrenciaController;
     private final PessoaController pessoaController;
  
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
  
-    public OcorrenciaListar(OcorrenciaController ocorrenciaController,
+    public OcorrenciaListar(OcorrenciaIController ocorrenciaController,
             PessoaController pessoaController) {
         this.ocorrenciaController = ocorrenciaController;
         this.pessoaController = pessoaController;

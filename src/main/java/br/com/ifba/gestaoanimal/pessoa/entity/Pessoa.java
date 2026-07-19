@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.com.ifba.gestaoanimal.pessoa.entity;
 
 import br.com.ifba.gestaoanimal.infrastructure.entity.PersistenceEntity;
 import br.com.ifba.gestaoanimal.usuario.entity.Usuario;
+import br.com.ifba.gestaoanimal.enums.StatusVoluntarioEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -15,12 +15,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
-/**
- *
- * @author m
- */
 
 @Data
 @NoArgsConstructor
@@ -53,8 +50,15 @@ public class Pessoa extends PersistenceEntity {
    private LocalDate dataCadastro;
 
     @OneToOne(mappedBy = "pessoa")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Usuario usuario;
 
     @Column(name = "ativo", nullable = false)
     private Boolean ativo = true;
+
+   
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_voluntario")
+    private StatusVoluntarioEnum statusVoluntario;
 }

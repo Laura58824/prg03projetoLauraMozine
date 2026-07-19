@@ -5,6 +5,7 @@ import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
 import br.com.ifba.gestaoanimal.enums.TipoOcorrenciaEnum;
 import br.com.ifba.gestaoanimal.enums.UrgenciaEnum;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
@@ -19,11 +20,11 @@ public class OcorrenciaCadastrar extends javax.swing.JFrame {
  
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(OcorrenciaCadastrar.class.getName());
  
-    private final OcorrenciaController ocorrenciaController;
+    private final OcorrenciaIController ocorrenciaController;
     private final PessoaController pessoaController;
     private final OcorrenciaListar parent;
  
-    public OcorrenciaCadastrar(OcorrenciaController ocorrenciaController, PessoaController pessoaController, OcorrenciaListar parent) {
+    public OcorrenciaCadastrar(OcorrenciaIController ocorrenciaController, PessoaController pessoaController, OcorrenciaListar parent) {
         this.ocorrenciaController = ocorrenciaController;
         this.pessoaController = pessoaController;
         this.parent = parent;

@@ -2,13 +2,14 @@ package br.com.ifba.gestaoanimal.solicitacaovoluntario.controller;
 
 import br.com.ifba.gestaoanimal.solicitacaovoluntario.entity.SolicitacaoVoluntario;
 import br.com.ifba.gestaoanimal.solicitacaovoluntario.service.SolicitacaoVoluntarioIService;
+import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
 import br.com.ifba.gestaoanimal.enums.StatusSolicitacaoEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class SolicitacaoVoluntarioController {
+public class SolicitacaoVoluntarioController implements SolicitacaoVoluntarioIController {
 
     @Autowired
     private SolicitacaoVoluntarioIService solicitacaoVoluntarioService;
@@ -31,5 +32,15 @@ public class SolicitacaoVoluntarioController {
 
     public SolicitacaoVoluntario findById(Long id) {
         return solicitacaoVoluntarioService.findById(id);
+    }
+
+    @Override
+    public SolicitacaoVoluntario aprovar(Long id, Pessoa analisadoPor, String observacaoAdmin) {
+        return solicitacaoVoluntarioService.aprovar(id, analisadoPor, observacaoAdmin);
+    }
+
+    @Override
+    public SolicitacaoVoluntario recusar(Long id, Pessoa analisadoPor, String observacaoAdmin) {
+        return solicitacaoVoluntarioService.recusar(id, analisadoPor, observacaoAdmin);
     }
 }

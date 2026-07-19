@@ -54,6 +54,11 @@ public class UsuarioService implements UsuarioIService {
     }
 
     @Override
+    public Usuario findByPessoaId(Long pessoaId) {
+        return usuarioRepository.findByPessoaId(pessoaId).orElse(null);
+    }
+
+    @Override
     public Usuario autenticar(String login, String senha) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByLogin(login);
 

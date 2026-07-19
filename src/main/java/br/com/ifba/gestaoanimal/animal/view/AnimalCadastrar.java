@@ -6,10 +6,10 @@ import br.com.ifba.gestaoanimal.enums.EspecieEnum;
 import br.com.ifba.gestaoanimal.enums.PorteEnum;
 import br.com.ifba.gestaoanimal.enums.SexoEnum;
 import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
+import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import javax.swing.*;
 import java.time.format.DateTimeFormatter;
-
-
 
 import java.time.LocalDate;
 
@@ -18,13 +18,19 @@ import javax.swing.JOptionPane;
 import java.time.format.DateTimeParseException;
 
 public class AnimalCadastrar extends javax.swing.JFrame {
-    
+
     private final AnimalIController animalController;
     private final AnimalListar parent;
+    private final OcorrenciaIController ocorrenciaController;
 
-    public AnimalCadastrar(AnimalIController animalController, AnimalListar parent) {
+    public AnimalCadastrar(AnimalIController animalController,
+            AnimalListar parent,
+            OcorrenciaIController ocorrenciaController) {
+
         this.animalController = animalController;
         this.parent = parent;
+        this.ocorrenciaController = ocorrenciaController;
+
         initComponents();
         configurarTela();
     }
@@ -35,13 +41,11 @@ public class AnimalCadastrar extends javax.swing.JFrame {
 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
 
-      
         cmbEspecie.setModel(new DefaultComboBoxModel(EspecieEnum.values()));
         cmbSexo.setModel(new DefaultComboBoxModel(SexoEnum.values()));
         cmbPorte.setModel(new DefaultComboBoxModel(PorteEnum.values()));
         cmbStatus.setModel(new DefaultComboBoxModel(StatusAnimalEnum.values()));
-        
-        
+
         txtNome.setFont(fonte);
         cmbEspecie.setFont(fonte);
         txtRaca.setFont(fonte);
@@ -55,26 +59,45 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         btnSalvar.setFont(fonte);
         btnCancelar.setFont(fonte);
 
-        
         btnSalvar.setText("Salvar");
         btnSalvar.setForeground(new java.awt.Color(60, 52, 137));
         btnSalvar.setBackground(java.awt.Color.WHITE);
         btnSalvar.setOpaque(true);
         btnSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 52, 137), 1, true));
 
-       
         btnCancelar.setText("Cancelar");
         btnCancelar.setForeground(new java.awt.Color(80, 80, 80));
         btnCancelar.setBackground(java.awt.Color.WHITE);
         btnCancelar.setOpaque(true);
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
 
-        
         txtDataEntrada.setToolTipText("dd/MM/yyyy");
+
+        jLabel11.setText("Ocorrência de origem");
+
+        cmbOcorrencia.setFont(fonte);
+        cmbOcorrencia.setModel(new DefaultComboBoxModel<>(
+                ocorrenciaController.findAll().toArray(new Ocorrencia[0])
+        ));
+        cmbOcorrencia.setSelectedIndex(-1);
+        cmbOcorrencia.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(JList<?> list, Object value,
+                    int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Ocorrencia o) {
+                    setText("#" + o.getId() + " - " + o.getTipo() + " - " + o.getBairro());
+                } else {
+                    setText("Nenhuma");
+                }
+                return this;
+            }
+        });
+
     }
 
     private void salvar() {
-        
+
         if (txtNome.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "O nome é obrigatório.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
@@ -92,7 +115,6 @@ public class AnimalCadastrar extends javax.swing.JFrame {
             return;
         }
 
-        
         Animal animal = new Animal();
         animal.setNome(txtNome.getText().trim());
         animal.setEspecie((EspecieEnum) cmbEspecie.getSelectedItem());
@@ -105,7 +127,6 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         animal.setNecessidadesEspeciais(txtNecessidades.getText().trim());
         animal.setAtivo(true);
 
-       
         String dataStr = txtDataEntrada.getText().trim();
         if (!dataStr.isEmpty()) {
             try {
@@ -118,8 +139,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         } else {
             animal.setDataEntrada(LocalDate.now());
         }
-
-       
+        animal.setOcorrencia((Ocorrencia) cmbOcorrencia.getSelectedItem());
         animalController.save(animal);
         JOptionPane.showMessageDialog(this, "Animal cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();
@@ -130,9 +150,8 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         dispose();
     }
 
-   
     @SuppressWarnings("unchecked")
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -160,6 +179,8 @@ public class AnimalCadastrar extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        cmbOcorrencia = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -183,6 +204,8 @@ public class AnimalCadastrar extends javax.swing.JFrame {
 
         jLabel10.setText("Necessidades especiais");
 
+        spnIdade.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+
         txtNecessidades.setColumns(20);
         txtNecessidades.setRows(5);
         jScrollPane1.setViewportView(txtNecessidades);
@@ -204,10 +227,13 @@ public class AnimalCadastrar extends javax.swing.JFrame {
             .addGap(0, 44, Short.MAX_VALUE)
         );
 
+        jLabel11.setText("Ocorrência de origem");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +245,7 @@ public class AnimalCadastrar extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtRaca)
                             .addComponent(spnIdade))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -233,33 +259,34 @@ public class AnimalCadastrar extends javax.swing.JFrame {
                                         .addComponent(cmbPorte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(cmbEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(txtTemperamento, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnSalvar)
-                                .addGap(43, 43, 43)
+                                .addGap(50, 50, 50)
                                 .addComponent(btnCancelar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel7)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbStatus, 0, 164, Short.MAX_VALUE)
-                                        .addGap(130, 130, 130)))
+                                        .addComponent(cmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(168, 168, 168)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(85, 85, 85))))
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(85, 85, 85))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTemperamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbOcorrencia, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,41 +329,47 @@ public class AnimalCadastrar extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTemperamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbOcorrencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-         salvar();
+        salvar();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-       cancelar();
+        cancelar();
     }//GEN-LAST:event_btnCancelarActionPerformed
-  
+
     public static void main(String args[]) {
-       
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cmbEspecie;
+    private javax.swing.JComboBox<Ocorrencia> cmbOcorrencia;
     private javax.swing.JComboBox<String> cmbPorte;
     private javax.swing.JComboBox<String> cmbSexo;
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

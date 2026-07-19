@@ -5,6 +5,7 @@ import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
 import br.com.ifba.gestaoanimal.enums.TipoOcorrenciaEnum;
 import br.com.ifba.gestaoanimal.enums.UrgenciaEnum;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.entity.Pessoa;
@@ -24,12 +25,12 @@ public class OcorrenciaEditar extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(OcorrenciaEditar.class.getName());
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
  
-    private final OcorrenciaController ocorrenciaController;
+    private final OcorrenciaIController ocorrenciaController;
     private final PessoaController pessoaController;
     private final OcorrenciaListar parent;
     private final Ocorrencia ocorrencia;
  
-    public OcorrenciaEditar(OcorrenciaController ocorrenciaController, PessoaController pessoaController,
+    public OcorrenciaEditar(OcorrenciaIController ocorrenciaController, PessoaController pessoaController,
             OcorrenciaListar parent, Ocorrencia ocorrencia) {
         this.ocorrenciaController = ocorrenciaController;
         this.pessoaController = pessoaController;

@@ -6,10 +6,9 @@ package br.com.ifba.gestaoanimal.geral.view;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.view.AdocaoListar;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.view.AnimalListar;
-import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.view.OcorrenciaListar;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.pessoa.view.PessoaListar;
@@ -26,13 +25,13 @@ private final AnimalIController animalController;
 private final PessoaController pessoaController;
 private final AdocaoController adocaoController;
 private final RegistroSaudeController registroSaudeController;
-private final OcorrenciaController ocorrenciaController;
+private final OcorrenciaIController ocorrenciaController;
 
 public TelaPrincipal(AnimalIController animalController,
                       PessoaController pessoaController,
                       AdocaoController adocaoController,
                       RegistroSaudeController registroSaudeController,
-                      OcorrenciaController ocorrenciaController) {
+                      OcorrenciaIController ocorrenciaController) {
     this.animalController = animalController;
     this.pessoaController = pessoaController;
     this.adocaoController = adocaoController;
@@ -165,32 +164,58 @@ public TelaPrincipal(AnimalIController animalController,
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnimaisActionPerformed
-     this.setVisible(false);
-    new AnimalListar(animalController).setVisible(true);
+      this.setVisible(false);
+    AnimalListar tela = new AnimalListar(animalController, ocorrenciaController);
+    tela.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            TelaPrincipal.this.setVisible(true);
+        }
+    });
+    tela.setVisible(true);
     }//GEN-LAST:event_btnAnimaisActionPerformed
 
     private void btnPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPessoasActionPerformed
     this.setVisible(false);
-    new PessoaListar(pessoaController).setVisible(true);
+    PessoaListar tela = new PessoaListar(pessoaController);
+    tela.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            TelaPrincipal.this.setVisible(true);
+        }
+    });
+    tela.setVisible(true);
     }//GEN-LAST:event_btnPessoasActionPerformed
 
     private void btnRegistroSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroSaudeActionPerformed
-        this.setVisible(false);
-    new RegistroSaudeListar(registroSaudeController, animalController, pessoaController).setVisible(true);
+       this.setVisible(false);
+    RegistroSaudeListar tela = new RegistroSaudeListar(registroSaudeController, animalController, pessoaController);
+    tela.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            TelaPrincipal.this.setVisible(true);
+        }
+    });
+    tela.setVisible(true);
     }//GEN-LAST:event_btnRegistroSaudeActionPerformed
 
     private void btnOcorrenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOcorrenciasActionPerformed
-    this.setVisible(false);
-   new OcorrenciaListar(ocorrenciaController, pessoaController).setVisible(true);
+      this.setVisible(false);
+    OcorrenciaListar tela = new OcorrenciaListar(ocorrenciaController, pessoaController);
+    tela.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            TelaPrincipal.this.setVisible(true);
+        }
+    });
+    tela.setVisible(true);
     }//GEN-LAST:event_btnOcorrenciasActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
        
     }

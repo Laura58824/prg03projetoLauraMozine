@@ -6,6 +6,7 @@ import br.com.ifba.gestaoanimal.enums.EspecieEnum;
 import br.com.ifba.gestaoanimal.enums.PorteEnum;
 import br.com.ifba.gestaoanimal.enums.SexoEnum;
 import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
+import br.com.ifba.gestaoanimal.ocorrencia.entity.Ocorrencia;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,7 +19,7 @@ public class AnimalEditar extends javax.swing.JFrame {
     private final AnimalIController animalController;
     private final AnimalListar parent;
     private final Animal animal;
- 
+    
     public AnimalEditar(AnimalIController animalController, AnimalListar parent, Animal animal) {
         this.animalController = animalController;
         this.parent = parent;
@@ -39,7 +40,9 @@ public class AnimalEditar extends javax.swing.JFrame {
         cmbSexo.setModel(new DefaultComboBoxModel(SexoEnum.values()));
         cmbPorte.setModel(new DefaultComboBoxModel(PorteEnum.values()));
         cmbStatus.setModel(new DefaultComboBoxModel(StatusAnimalEnum.values()));
- 
+       
+        
+        txtOcorrenciaOrigem.setFont(fonte);
         txtNome.setFont(fonte);
         cmbEspecie.setFont(fonte);
         txtRaca.setFont(fonte);
@@ -78,6 +81,21 @@ public class AnimalEditar extends javax.swing.JFrame {
         cmbStatus.setSelectedItem(animal.getStatus());
         txtTemperamento.setText(animal.getTemperamento() != null ? animal.getTemperamento() : "");
         txtNecessidades.setText(animal.getNecessidadesEspeciais() != null ? animal.getNecessidadesEspeciais() : "");
+        
+        txtOcorrenciaOrigem.setEditable(false);
+
+        Ocorrencia o = animal.getOcorrencia();
+
+        if (o != null) {
+            txtOcorrenciaOrigem.setText(
+                "Código: " + o.getId() + "\n" +
+                "Tipo: " + o.getTipo() + "\n" +
+                "Bairro: " + o.getBairro() + "\n" +
+                "Endereço: " + o.getEndereco() + "\n" +
+                "Urgência: " + o.getUrgencia()
+            );
+        }
+        
         if (animal.getDataEntrada() != null) {
             txtDataEntrada.setText(
                 animal.getDataEntrada().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -101,7 +119,7 @@ public class AnimalEditar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecione o status.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
             return;
         }
-    animal.setNome(txtNome.getText().trim());
+        animal.setNome(txtNome.getText().trim());
         animal.setEspecie((EspecieEnum) cmbEspecie.getSelectedItem());
         animal.setRaca(txtRaca.getText().trim());
         animal.setSexo((SexoEnum) cmbSexo.getSelectedItem());
@@ -110,7 +128,9 @@ public class AnimalEditar extends javax.swing.JFrame {
         animal.setStatus((StatusAnimalEnum) cmbStatus.getSelectedItem());
         animal.setTemperamento(txtTemperamento.getText().trim());
         animal.setNecessidadesEspeciais(txtNecessidades.getText().trim());
- 
+      
+        
+        
         String dataStr = txtDataEntrada.getText().trim();
         if (!dataStr.isEmpty()) {
             try {
@@ -131,6 +151,8 @@ public class AnimalEditar extends javax.swing.JFrame {
     private void cancelar() {
         dispose();
     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -159,6 +181,9 @@ public class AnimalEditar extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         cmbEspecie = new javax.swing.JComboBox<>();
         cmbPorte = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtOcorrenciaOrigem = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -199,6 +224,8 @@ public class AnimalEditar extends javax.swing.JFrame {
         txtNecessidades.setRows(5);
         jScrollPane1.setViewportView(txtNecessidades);
 
+        spnIdade.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cmbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -213,45 +240,48 @@ public class AnimalEditar extends javax.swing.JFrame {
 
         cmbPorte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel12.setText("Ocorrência de origem");
+
+        txtOcorrenciaOrigem.setColumns(20);
+        txtOcorrenciaOrigem.setRows(5);
+        jScrollPane2.setViewportView(txtOcorrenciaOrigem);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(40, 40, 40)
+                .addComponent(btnSalvar)
+                .addGap(105, 105, 105))
             .addGroup(layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(spnIdade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                            .addComponent(txtTemperamento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRaca, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(273, 273, 273)
-                                .addComponent(btnCancelar)
-                                .addGap(57, 57, 57)
-                                .addComponent(btnSalvar)
-                                .addGap(3, 3, 3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel2)
-                                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(97, 97, 97)))
-                                .addGap(3, 3, 3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtRaca, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(spnIdade, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmbStatus, 0, 234, Short.MAX_VALUE)
+                                    .addComponent(txtNome)
+                                    .addComponent(txtTemperamento))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel10)
                                     .addComponent(jLabel7)
@@ -260,9 +290,9 @@ public class AnimalEditar extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9)
                                     .addComponent(txtDataEntrada)
-                                    .addComponent(cmbPorte, 0, 235, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)))
-                        .addGap(77, 77, 77))))
+                                    .addComponent(cmbPorte, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(138, 138, 138))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,15 +333,19 @@ public class AnimalEditar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(50, 50, 50)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTemperamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(55, 55, 55)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -345,6 +379,7 @@ public class AnimalEditar extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -355,10 +390,12 @@ public class AnimalEditar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner spnIdade;
     private javax.swing.JTextField txtDataEntrada;
     private javax.swing.JTextArea txtNecessidades;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextArea txtOcorrenciaOrigem;
     private javax.swing.JTextField txtRaca;
     private javax.swing.JTextField txtTemperamento;
     // End of variables declaration//GEN-END:variables

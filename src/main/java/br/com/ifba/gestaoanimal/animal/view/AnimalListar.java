@@ -1,9 +1,9 @@
 
 package br.com.ifba.gestaoanimal.animal.view;
 
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
+import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaIController;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
 import java.awt.Color;
 import java.util.List;
@@ -19,9 +19,11 @@ public class AnimalListar extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AnimalListar.class.getName());
     private DefaultTableModel tableModel;
     private final AnimalIController animalController;
+    private final OcorrenciaIController ocorrenciaController;
     
-    public AnimalListar(AnimalIController animalController) {
+    public AnimalListar(AnimalIController animalController, OcorrenciaIController ocorrenciaController) {
         this.animalController = animalController;
+        this.ocorrenciaController = ocorrenciaController;
         initComponents();
         configurarTabela();
         carregarTabela();
@@ -262,7 +264,7 @@ private void configurarTabela() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        AnimalCadastrar cadastrar = new AnimalCadastrar(animalController, this);
+        AnimalCadastrar cadastrar = new AnimalCadastrar(animalController, this,  ocorrenciaController);
         cadastrar.setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -316,25 +318,7 @@ private void configurarTabela() {
 
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AnimalListar(new AnimalController()).setVisible(true));
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
