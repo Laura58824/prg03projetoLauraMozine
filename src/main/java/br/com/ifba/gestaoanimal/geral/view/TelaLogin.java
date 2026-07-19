@@ -6,6 +6,7 @@ import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
+import br.com.ifba.gestaoanimal.solicitacaovoluntario.controller.SolicitacaoVoluntarioIController;
 import br.com.ifba.gestaoanimal.usuario.controller.UsuarioIController;
 import br.com.ifba.gestaoanimal.usuario.entity.Usuario;
 import br.com.ifba.gestaoanimal.usuario.util.SessaoUsuario;
@@ -19,13 +20,14 @@ public class TelaLogin extends javax.swing.JFrame {
     private final AdocaoController adocaoController;
     private final RegistroSaudeController registroSaudeController;
     private final OcorrenciaController ocorrenciaController;
- 
+    private final SolicitacaoVoluntarioIController solicitacaoController;
+    
     public TelaLogin(UsuarioIController usuarioController,
                       AnimalIController animalController,
                       PessoaController pessoaController,
                       AdocaoController adocaoController,
                       RegistroSaudeController registroSaudeController,
-                      OcorrenciaController ocorrenciaController) {
+                      OcorrenciaController ocorrenciaController, SolicitacaoVoluntarioIController solicitacaoController) {
  
         this.usuarioController = usuarioController;
         this.animalController = animalController;
@@ -33,11 +35,11 @@ public class TelaLogin extends javax.swing.JFrame {
         this.adocaoController = adocaoController;
         this.registroSaudeController = registroSaudeController;
         this.ocorrenciaController = ocorrenciaController;
+        this.solicitacaoController= solicitacaoController;
  
         initComponents();
         this.setLocationRelativeTo(null);
     }
- 
 
    
     @SuppressWarnings("unchecked")
@@ -103,7 +105,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        String login = txtLogin.getText().trim();
+       String login = txtLogin.getText().trim();
         String senha = new String(txtSenha.getPassword());
  
         if (login.isEmpty() || senha.isEmpty()) {
@@ -126,7 +128,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 pessoaController,
                 adocaoController,
                 registroSaudeController,
-                ocorrenciaController
+                ocorrenciaController,
+                solicitacaoController
         );
         telaPrincipal.setVisible(true);
         this.dispose();

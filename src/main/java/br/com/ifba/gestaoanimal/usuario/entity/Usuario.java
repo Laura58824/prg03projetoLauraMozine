@@ -15,8 +15,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 
 
 @Data
@@ -43,8 +41,6 @@ public class Usuario extends PersistenceEntity{
     
     @OneToOne
     @JoinColumn(name = "pessoa_id", nullable = false)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
     private Pessoa pessoa;
     
     @ManyToOne

@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class SolicitacaoVoluntarioService implements SolicitacaoVoluntarioIService {
 
-  
     private static final String SENHA_PADRAO_VOLUNTARIO = "voluntario123";
 
     @Autowired
@@ -35,11 +34,37 @@ public class SolicitacaoVoluntarioService implements SolicitacaoVoluntarioIServi
 
     @Override
     public SolicitacaoVoluntario save(SolicitacaoVoluntario solicitacao) {
+        validarCamposObrigatorios(solicitacao);
+
+        if (existeSolicitacaoPendente(solicitacao.getSolicitante().getId())) {
+            throw new IllegalStateException(
+                    "Essa pessoa já possui uma solicitação de voluntariado pendente de análise.");
+        }
+
+        if (solicitacao.getSolicitante().getStatusVoluntario() == StatusVoluntarioEnum.ATIVO) {
+            throw new IllegalStateException("Essa pessoa já é voluntária ativa.");
+        }
+
+        if (solicitacao.getDataSolicitacao() == null) {
+            solicitacao.setDataSolicitacao(LocalDateTime.now());
+        }
+        solicitacao.setStatus(StatusSolicitacaoEnum.PENDENTE);
+        solicitacao.setDataResposta(null);
+        solicitacao.setObservacaoAdmin(null);
+        solicitacao.setAnalisadoPor(null);
+
         return solicitacaoVoluntarioRepository.save(solicitacao);
     }
 
     @Override
     public SolicitacaoVoluntario update(SolicitacaoVoluntario solicitacao) {
+        if (solicitacao.getId() == null) {
+            throw new IllegalArgumentException("Informe o ID da solicitação para atualizar.");
+        }
+        if (findById(solicitacao.getId()) == null) {
+            throw new IllegalArgumentException("Solicitação não encontrada.");
+        }
+        validarCamposObrigatorios(solicitacao);
         return solicitacaoVoluntarioRepository.save(solicitacao);
     }
 
@@ -50,20 +75,23 @@ public class SolicitacaoVoluntarioService implements SolicitacaoVoluntarioIServi
 
     @Override
     public List<SolicitacaoVoluntario> findByStatus(StatusSolicitacaoEnum status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Informe o status para filtrar.");
+        }
         return solicitacaoVoluntarioRepository.findByStatus(status);
     }
 
     @Override
     public SolicitacaoVoluntario findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Informe o ID da solicitação.");
+        }
         return solicitacaoVoluntarioRepository.findById(id).orElse(null);
     }
 
     @Override
     public SolicitacaoVoluntario aprovar(Long id, Pessoa analisadoPor, String observacaoAdmin) {
-        SolicitacaoVoluntario solicitacao = findById(id);
-        if (solicitacao == null) {
-            throw new IllegalArgumentException("Solicitação não encontrada.");
-        }
+        SolicitacaoVoluntario solicitacao = validarSolicitacaoParaAnalise(id, analisadoPor);
 
         solicitacao.setStatus(StatusSolicitacaoEnum.APROVADA);
         solicitacao.setDataResposta(LocalDateTime.now());
@@ -82,16 +110,49 @@ public class SolicitacaoVoluntarioService implements SolicitacaoVoluntarioIServi
 
     @Override
     public SolicitacaoVoluntario recusar(Long id, Pessoa analisadoPor, String observacaoAdmin) {
-        SolicitacaoVoluntario solicitacao = findById(id);
-        if (solicitacao == null) {
-            throw new IllegalArgumentException("Solicitação não encontrada.");
-        }
+        SolicitacaoVoluntario solicitacao = validarSolicitacaoParaAnalise(id, analisadoPor);
 
         solicitacao.setStatus(StatusSolicitacaoEnum.RECUSADA);
         solicitacao.setDataResposta(LocalDateTime.now());
         solicitacao.setObservacaoAdmin(observacaoAdmin);
         solicitacao.setAnalisadoPor(analisadoPor);
         return solicitacaoVoluntarioRepository.save(solicitacao);
+    }
+
+
+    private void validarCamposObrigatorios(SolicitacaoVoluntario solicitacao) {
+        if (solicitacao == null) {
+            throw new IllegalArgumentException("Solicitação inválida.");
+        }
+        if (solicitacao.getSolicitante() == null || solicitacao.getSolicitante().getId() == null) {
+            throw new IllegalArgumentException("Selecione o solicitante.");
+        }
+        if (solicitacao.getMotivacao() == null || solicitacao.getMotivacao().isBlank()) {
+            throw new IllegalArgumentException("Informe a motivação da solicitação.");
+        }
+    }
+
+    private boolean existeSolicitacaoPendente(Long solicitanteId) {
+        return solicitacaoVoluntarioRepository.findByStatus(StatusSolicitacaoEnum.PENDENTE).stream()
+                .anyMatch(s -> s.getSolicitante() != null && solicitanteId.equals(s.getSolicitante().getId()));
+    }
+
+    private SolicitacaoVoluntario validarSolicitacaoParaAnalise(Long id, Pessoa analisadoPor) {
+        if (id == null) {
+            throw new IllegalArgumentException("Informe o ID da solicitação.");
+        }
+        if (analisadoPor == null || analisadoPor.getId() == null) {
+            throw new IllegalStateException("Não foi possível identificar quem está analisando a solicitação. Faça login novamente.");
+        }
+
+        SolicitacaoVoluntario solicitacao = findById(id);
+        if (solicitacao == null) {
+            throw new IllegalArgumentException("Solicitação não encontrada.");
+        }
+        if (solicitacao.getStatus() != StatusSolicitacaoEnum.PENDENTE) {
+            throw new IllegalStateException("Essa solicitação já foi analisada anteriormente (" + solicitacao.getStatus() + ").");
+        }
+        return solicitacao;
     }
 
     private void garantirLoginDeVoluntario(Pessoa pessoa) {

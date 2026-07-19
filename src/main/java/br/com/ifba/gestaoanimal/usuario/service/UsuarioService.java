@@ -54,11 +54,6 @@ public class UsuarioService implements UsuarioIService {
     }
 
     @Override
-    public Usuario findByPessoaId(Long pessoaId) {
-        return usuarioRepository.findByPessoaId(pessoaId).orElse(null);
-    }
-
-    @Override
     public Usuario autenticar(String login, String senha) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByLogin(login);
 
@@ -80,5 +75,14 @@ public class UsuarioService implements UsuarioIService {
         usuarioRepository.save(usuario);
 
         return usuario;
+    }
+    
+    
+    @Override
+    public Usuario findByPessoaId(Long pessoaId) {
+        if (pessoaId == null) {
+            return null;
+        }
+        return usuarioRepository.findByPessoaId(pessoaId).orElse(null);
     }
 }

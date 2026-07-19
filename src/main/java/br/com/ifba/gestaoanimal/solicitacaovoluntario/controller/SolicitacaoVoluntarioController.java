@@ -14,22 +14,27 @@ public class SolicitacaoVoluntarioController implements SolicitacaoVoluntarioICo
     @Autowired
     private SolicitacaoVoluntarioIService solicitacaoVoluntarioService;
 
+    @Override
     public SolicitacaoVoluntario save(SolicitacaoVoluntario solicitacao) {
         return solicitacaoVoluntarioService.save(solicitacao);
     }
 
+    @Override
     public SolicitacaoVoluntario update(SolicitacaoVoluntario solicitacao) {
         return solicitacaoVoluntarioService.update(solicitacao);
     }
 
+    @Override
     public List<SolicitacaoVoluntario> findAll() {
         return solicitacaoVoluntarioService.findAll();
     }
 
+    @Override
     public List<SolicitacaoVoluntario> findByStatus(StatusSolicitacaoEnum status) {
         return solicitacaoVoluntarioService.findByStatus(status);
     }
 
+    @Override
     public SolicitacaoVoluntario findById(Long id) {
         return solicitacaoVoluntarioService.findById(id);
     }

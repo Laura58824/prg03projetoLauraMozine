@@ -12,22 +12,27 @@ public class PerfilUsuarioController implements PerfilUsuarioIController {
     @Autowired
     private PerfilUsuarioIService perfilUsuarioService;
 
+    @Override
     public PerfilUsuario save(PerfilUsuario perfil) {
         return perfilUsuarioService.save(perfil);
     }
 
+    @Override
     public PerfilUsuario update(PerfilUsuario perfil) {
         return perfilUsuarioService.update(perfil);
     }
 
+    @Override
     public void delete(Long id) {
         perfilUsuarioService.delete(id);
     }
 
+    @Override
     public List<PerfilUsuario> findAll() {
         return perfilUsuarioService.findAll();
     }
 
+    @Override
     public PerfilUsuario findById(Long id) {
         return perfilUsuarioService.findById(id);
     }

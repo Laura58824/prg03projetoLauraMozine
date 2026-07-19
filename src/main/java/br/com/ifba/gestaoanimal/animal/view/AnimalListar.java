@@ -167,7 +167,7 @@ private void configurarTabela() {
     btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_ANIMAL"));
     btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_ANIMAL"));
     btnDesativar.setVisible(SessaoUsuario.temPermissao("DESATIVAR_ANIMAL"));
-}
+}    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

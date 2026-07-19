@@ -1,4 +1,3 @@
-
 package br.com.ifba.gestaoanimal.animal.view;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.entity.Animal;
@@ -151,8 +150,7 @@ public class AnimalEditar extends javax.swing.JFrame {
     private void cancelar() {
         dispose();
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

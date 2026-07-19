@@ -63,4 +63,4 @@ public class Animal extends PersistenceEntity {
     
     @Column(name = "ativo", nullable = false)
     private Boolean ativo = true;
-}
+    }

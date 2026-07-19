@@ -33,66 +33,25 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         PerfilUsuario perfilAdmin = seedPerfilAdministrador();
-        seedPerfilUsuarioComum();
-        seedPerfilVoluntario();
         Pessoa pessoaAdmin = seedPessoaAdmin();
         seedUsuarioAdmin(perfilAdmin, pessoaAdmin);
     }
 
-    private static final String PERMISSOES_ADMIN = String.join(",",
-            "CADASTRAR_ANIMAL", "EDITAR_ANIMAL", "DESATIVAR_ANIMAL",
-            "CADASTRAR_PESSOA", "EDITAR_PESSOA", "DESATIVAR_PESSOA",
-            "CADASTRAR_ADOCAO", "EDITAR_ADOCAO", "DESATIVAR_ADOCAO",
-            "CADASTRAR_OCORRENCIA", "EDITAR_OCORRENCIA", "DESATIVAR_OCORRENCIA",
-            "CADASTRAR_REGISTRO_SAUDE", "EDITAR_REGISTRO_SAUDE", "DESATIVAR_REGISTRO_SAUDE",
-            "CADASTRAR_DOACAO",
-            "CADASTRAR_SOLICITACAO_VOLUNTARIO", "ANALISAR_SOLICITACAO_VOLUNTARIO"
-    );
-
-    
-    private static final String PERMISSOES_USUARIO_COMUM = String.join(",",
-            "CADASTRAR_OCORRENCIA",
-            "CADASTRAR_DOACAO",
-            "CADASTRAR_ADOCAO",
-            "CADASTRAR_SOLICITACAO_VOLUNTARIO"
-    );
-
-   
-    private static final String PERMISSOES_VOLUNTARIO = String.join(",",
-            "CADASTRAR_OCORRENCIA", "EDITAR_OCORRENCIA",
-            "CADASTRAR_DOACAO",
-            "CADASTRAR_ADOCAO", "EDITAR_ADOCAO",
-            "CADASTRAR_SOLICITACAO_VOLUNTARIO"
-    );
-
-    private PerfilUsuario seedPerfil(String descricao, String permissoes) {
-        PerfilUsuario perfil = perfilUsuarioRepository.findByDescricao(descricao)
-                .orElseGet(() -> {
-                    PerfilUsuario novo = new PerfilUsuario();
-                    novo.setDescricao(descricao);
-                    System.out.println("[DataSeeder] Perfil '" + descricao + "' criado.");
-                    return novo;
-                });
-
-        if (!permissoes.equals(perfil.getPermissoes())) {
-            perfil.setPermissoes(permissoes);
-            perfil = perfilUsuarioRepository.save(perfil);
-            System.out.println("[DataSeeder] Permissões do perfil '" + descricao + "' atualizadas.");
-        }
-
-        return perfil;
-    }
-
     private PerfilUsuario seedPerfilAdministrador() {
-        return seedPerfil("Administrador", PERMISSOES_ADMIN);
-    }
-
-    private PerfilUsuario seedPerfilUsuarioComum() {
-        return seedPerfil("Usuário Comum", PERMISSOES_USUARIO_COMUM);
-    }
-
-    private PerfilUsuario seedPerfilVoluntario() {
-        return seedPerfil("Voluntário", PERMISSOES_VOLUNTARIO);
+        return perfilUsuarioRepository.findByDescricao("Administrador")
+                .orElseGet(() -> {
+                    PerfilUsuario perfil = new PerfilUsuario();
+                    perfil.setDescricao("Administrador");
+                    perfil.setPermissoes(String.join(",",
+                            "CADASTRAR_ANIMAL", "EDITAR_ANIMAL", "DESATIVAR_ANIMAL",
+                            "CADASTRAR_PESSOA", "EDITAR_PESSOA", "DESATIVAR_PESSOA",
+                            "CADASTRAR_ADOCAO", "EDITAR_ADOCAO", "DESATIVAR_ADOCAO",
+                            "CADASTRAR_OCORRENCIA", "EDITAR_OCORRENCIA", "DESATIVAR_OCORRENCIA",
+                            "CADASTRAR_REGISTRO_SAUDE", "EDITAR_REGISTRO_SAUDE", "DESATIVAR_REGISTRO_SAUDE"
+                    ));
+                    System.out.println("[DataSeeder] Perfil 'Administrador' criado.");
+                    return perfilUsuarioRepository.save(perfil);
+                });
     }
 
     private Pessoa seedPessoaAdmin() {

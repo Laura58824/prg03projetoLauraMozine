@@ -6,6 +6,7 @@ import br.com.ifba.gestaoanimal.geral.view.TelaLogin;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
 import br.com.ifba.gestaoanimal.registrosaude.controller.RegistroSaudeController;
+import br.com.ifba.gestaoanimal.solicitacaovoluntario.controller.SolicitacaoVoluntarioIController;
 import br.com.ifba.gestaoanimal.usuario.controller.UsuarioIController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,7 +25,9 @@ public class GestaoanimalApplication {
         AdocaoController adocaoController = context.getBean(AdocaoController.class);
         RegistroSaudeController registroSaudeController = context.getBean(RegistroSaudeController.class);
         OcorrenciaController ocorrenciaController = context.getBean(OcorrenciaController.class);
-
+        SolicitacaoVoluntarioIController solicitacaoController = context.getBean(SolicitacaoVoluntarioIController.class);
+        
+        
         SwingUtilities.invokeLater(() -> {
             TelaLogin telaLogin = new TelaLogin(
                 usuarioController,
@@ -32,7 +35,8 @@ public class GestaoanimalApplication {
                 pessoaController,
                 adocaoController,
                 registroSaudeController,
-                ocorrenciaController
+                ocorrenciaController,
+                solicitacaoController
             );
             telaLogin.setVisible(true);
         });
