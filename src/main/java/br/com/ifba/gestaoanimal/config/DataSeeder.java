@@ -47,7 +47,8 @@ public class DataSeeder implements CommandLineRunner {
                             "CADASTRAR_PESSOA", "EDITAR_PESSOA", "DESATIVAR_PESSOA",
                             "CADASTRAR_ADOCAO", "EDITAR_ADOCAO", "DESATIVAR_ADOCAO",
                             "CADASTRAR_OCORRENCIA", "EDITAR_OCORRENCIA", "DESATIVAR_OCORRENCIA",
-                            "CADASTRAR_REGISTRO_SAUDE", "EDITAR_REGISTRO_SAUDE", "DESATIVAR_REGISTRO_SAUDE"
+                            "CADASTRAR_REGISTRO_SAUDE", "EDITAR_REGISTRO_SAUDE", "DESATIVAR_REGISTRO_SAUDE",
+                            "VISUALIZAR_LOG_AUDITORIA"
                     ));
                     System.out.println("[DataSeeder] Perfil 'Administrador' criado.");
                     return perfilUsuarioRepository.save(perfil);
@@ -60,7 +61,7 @@ public class DataSeeder implements CommandLineRunner {
                     .stream()
                     .findFirst()
                     .orElseThrow(() -> new IllegalStateException(
-                            "CPF admin ja existe, mas a Pessoa nao foi encontrada."));
+                    "CPF admin ja existe, mas a Pessoa nao foi encontrada."));
         }
 
         Pessoa pessoa = new Pessoa();

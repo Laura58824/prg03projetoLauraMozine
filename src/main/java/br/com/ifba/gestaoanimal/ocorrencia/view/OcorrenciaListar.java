@@ -33,6 +33,7 @@ public class OcorrenciaListar extends javax.swing.JFrame {
         configurarTabela();
         carregarTabela();
         aplicarPermissoes();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
  
     private void configurarTabela() {
@@ -269,7 +270,7 @@ public class OcorrenciaListar extends javax.swing.JFrame {
         painelBarra.setLayout(painelBarraLayout);
         painelBarraLayout.setHorizontalGroup(
             painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addGap(0, 1050, Short.MAX_VALUE)
         );
         painelBarraLayout.setVerticalGroup(
             painelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +351,7 @@ public class OcorrenciaListar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE))
         );
 
         pack();

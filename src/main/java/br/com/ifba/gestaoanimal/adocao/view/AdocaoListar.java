@@ -28,14 +28,17 @@ public class AdocaoListar extends javax.swing.JFrame {
         configurarTabela();
         carregarTabela();
         aplicarPermissoes();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     private void configurarTabela() {
         tableModel = new DefaultTableModel(
-            new String[]{"ID", "Animal", "Adotante", "Responsável", "Data Abertura", "Data Conclusão", "Status"}, 0
+                new String[]{"ID", "Animal", "Adotante", "Responsável", "Data Abertura", "Data Conclusão", "Status"}, 0
         ) {
             @Override
-            public boolean isCellEditable(int row, int column) { return false; }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
         tblAdocoes.setModel(tableModel);
         tblAdocoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -127,55 +130,57 @@ public class AdocaoListar extends javax.swing.JFrame {
                 a.getAdotante() != null ? a.getAdotante().getNome() : "",
                 a.getResponsavel() != null ? a.getResponsavel().getNome() : "",
                 a.getDataAbertura() != null
-                    ? a.getDataAbertura().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "",
+                ? a.getDataAbertura().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "",
                 a.getDataConclusao() != null
-                    ? a.getDataConclusao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "",
+                ? a.getDataConclusao().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "",
                 a.getStatus() != null ? a.getStatus().toString() : ""
             });
         }
     }
+
     private void filtrarTabela() {
 
-    String busca = txtBusca.getText().trim().toLowerCase();
-    String status = cmbStatus.getSelectedItem().toString();
+        String busca = txtBusca.getText().trim().toLowerCase();
+        String status = cmbStatus.getSelectedItem().toString();
 
-    tableModel.setRowCount(0);
+        tableModel.setRowCount(0);
 
-    for (Adocao a : adocaoController.findAll()) {
+        for (Adocao a : adocaoController.findAll()) {
 
-        boolean atendeBusca =
-                busca.isEmpty()
-                || busca.equals("buscar por animal ou adotante")
-                || (a.getAnimal() != null &&
-                    a.getAnimal().getNome().toLowerCase().contains(busca))
-                || (a.getAdotante() != null &&
-                    a.getAdotante().getNome().toLowerCase().contains(busca));
+            boolean atendeBusca
+                    = busca.isEmpty()
+                    || busca.equals("buscar por animal ou adotante")
+                    || (a.getAnimal() != null
+                    && a.getAnimal().getNome().toLowerCase().contains(busca))
+                    || (a.getAdotante() != null
+                    && a.getAdotante().getNome().toLowerCase().contains(busca));
 
-        boolean atendeStatus =
-                status.equals("Todos os status")
-                || a.getStatus().toString().equals(status);
+            boolean atendeStatus
+                    = status.equals("Todos os status")
+                    || a.getStatus().toString().equals(status);
 
-        if (atendeBusca && atendeStatus) {
+            if (atendeBusca && atendeStatus) {
 
-            tableModel.addRow(new Object[]{
-                a.getId(),
-                a.getAnimal().getNome(),
-                a.getAdotante().getNome(),
-                a.getResponsavel().getNome(),
-                a.getDataAbertura(),
-                a.getDataConclusao(),
-                a.getStatus()
-            });
+                tableModel.addRow(new Object[]{
+                    a.getId(),
+                    a.getAnimal().getNome(),
+                    a.getAdotante().getNome(),
+                    a.getResponsavel().getNome(),
+                    a.getDataAbertura(),
+                    a.getDataConclusao(),
+                    a.getStatus()
+                });
 
+            }
         }
     }
-}
-    
+
     private void aplicarPermissoes() {
         btnNovo.setVisible(SessaoUsuario.temPermissao("CADASTRAR_ADOCAO"));
         btnEditar.setVisible(SessaoUsuario.temPermissao("EDITAR_ADOCAO"));
         btnExcluir.setVisible(SessaoUsuario.temPermissao("DESATIVAR_ADOCAO"));
-}
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -255,7 +260,7 @@ public class AdocaoListar extends javax.swing.JFrame {
                 .addComponent(btnExcluir)
                 .addGap(32, 32, 32)
                 .addComponent(btnAtualizar)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(painelBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelBotoesLayout.setVerticalGroup(
@@ -282,15 +287,17 @@ public class AdocaoListar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -304,13 +311,13 @@ public class AdocaoListar extends javax.swing.JFrame {
         int linha = tblAdocoes.getSelectedRow();
         if (linha == -1) {
             JOptionPane.showMessageDialog(this, "Selecione uma adoção para excluir.",
-                "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
+                    "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
             return;
         }
         Long id = (Long) tableModel.getValueAt(linha, 0);
         int ok = JOptionPane.showConfirmDialog(this,
-            "Excluir a adoção ID: " + id + "?",
-            "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                "Excluir a adoção ID: " + id + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (ok == JOptionPane.YES_OPTION) {
             adocaoController.delete(id);
             carregarTabela();
@@ -321,30 +328,34 @@ public class AdocaoListar extends javax.swing.JFrame {
         int linha = tblAdocoes.getSelectedRow();
         if (linha == -1) {
             JOptionPane.showMessageDialog(this, "Selecione uma adoção para editar.",
-                "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
+                    "Nenhuma selecionada", JOptionPane.WARNING_MESSAGE);
             return;
         }
         Long id = (Long) tableModel.getValueAt(linha, 0);
         Adocao adocao = adocaoController.findById(id);
         AdocaoEditar editar = new AdocaoEditar(adocaoController, animalController, pessoaController, this, adocao);
         editar.setVisible(true);
+        editar.toFront();
+        editar.requestFocus();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         AdocaoCadastrar cadastrar = new AdocaoCadastrar(adocaoController, animalController, pessoaController, this);
         cadastrar.setVisible(true);
+        cadastrar.toFront();
+        cadastrar.requestFocus();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
-           filtrarTabela();
+        filtrarTabela();
     }//GEN-LAST:event_cmbStatusActionPerformed
 
     private void txtBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyReleased
         filtrarTabela();
     }//GEN-LAST:event_txtBuscaKeyReleased
 
-   
-    public static void main(String args[]) {}
+    public static void main(String args[]) {
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;

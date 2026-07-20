@@ -28,6 +28,7 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         this.parent = parent;
         initComponents();
         configurarTela();
+        
     }
 
     private void configurarTela() {

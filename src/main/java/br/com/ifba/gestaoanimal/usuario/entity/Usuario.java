@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
@@ -39,10 +40,13 @@ public class Usuario extends PersistenceEntity{
     @Column(name = "ultimo_acesso")
     private LocalDateTime ultimoAcesso;
     
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne
     @JoinColumn(name = "pessoa_id", nullable = false)
     private Pessoa pessoa;
-    
+
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "perfil_id", nullable = false)
     private PerfilUsuario perfil;

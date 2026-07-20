@@ -34,6 +34,7 @@ public class SolicitacaoVoluntarioListar extends javax.swing.JFrame {
         configurarTabela();
         carregarTabela();
         aplicarPermissoes();
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
  
     private void configurarTabela() {

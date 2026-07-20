@@ -31,6 +31,7 @@ public class AdocaoEditar extends javax.swing.JFrame {
         initComponents();
         configurarTela();
         preencherCampos();
+        
     }
 
     private void configurarTela() {

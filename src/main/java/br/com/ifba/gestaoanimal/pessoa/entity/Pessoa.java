@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 /**
@@ -55,13 +56,15 @@ public class Pessoa extends PersistenceEntity {
    @Column(name = "data_cadastro", nullable = false, updatable = false)
    private LocalDate dataCadastro;
 
-    @OneToOne(mappedBy = "pessoa")
-    private Usuario usuario;
-
     @Column(name = "ativo", nullable = false)
     private Boolean ativo = true;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status_voluntario")
     private StatusVoluntarioEnum statusVoluntario;
+    
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToOne(mappedBy = "pessoa")
+    private Usuario usuario;
 }
