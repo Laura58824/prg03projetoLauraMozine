@@ -1,13 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package br.com.ifba.gestaoanimal.doacao.controller;
 
-/**
- *
- * @author m
- */
+import br.com.ifba.gestaoanimal.doacao.entity.Doacao;
+import br.com.ifba.gestaoanimal.enums.TipoDoacaoEnum;
+
+import java.time.LocalDate;
+import java.util.List;
+
 public interface DoacaoIController {
-    
+
+    Doacao salvar(Doacao doacao);
+
+    Doacao atualizar(Doacao doacao);
+
+    void excluir(Long id);
+
+    Doacao findById(Long id);
+
+    List<Doacao> findAll();
+
+    List<Doacao> findByDoador(Long doadorId);
+
+    List<Doacao> findByTipo(TipoDoacaoEnum tipo);
+
+    List<Doacao> findByPeriodo(LocalDate inicio, LocalDate fim);
 }
