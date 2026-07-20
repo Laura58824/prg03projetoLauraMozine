@@ -4,6 +4,8 @@ import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.view.AdocaoListar;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.view.AnimalListar;
+import br.com.ifba.gestaoanimal.doacao.controller.DoacaoIController;
+import br.com.ifba.gestaoanimal.doacao.view.DoacaoListar;
 import br.com.ifba.gestaoanimal.enums.StatusAdocaoEnum;
 import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
 import br.com.ifba.gestaoanimal.enums.StatusOcorrenciaEnum;
@@ -32,14 +34,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private final OcorrenciaIController ocorrenciaController;
     private final SolicitacaoVoluntarioIController solicitacaoController;
     private final LogAuditoriaIController logAuditoriaController;
-
+    private final DoacaoIController doacaoController;
+    
     public TelaPrincipal(AnimalIController animalController,
             PessoaController pessoaController,
             AdocaoController adocaoController,
             RegistroSaudeController registroSaudeController,
             OcorrenciaIController ocorrenciaController,
             SolicitacaoVoluntarioIController solicitacaoController,
-            LogAuditoriaIController logAuditoriaController) {
+            LogAuditoriaIController logAuditoriaController, DoacaoIController doacaoController) {
         this.animalController = animalController;
         this.pessoaController = pessoaController;
         this.adocaoController = adocaoController;
@@ -47,7 +50,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.ocorrenciaController = ocorrenciaController;
         this.solicitacaoController = solicitacaoController;
         this.logAuditoriaController = logAuditoriaController;
-
+        this.doacaoController = doacaoController;
         initComponents();
         estilizarDashboard();
         aplicarPermissoes();
@@ -542,7 +545,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdocaoActionPerformed
 
     private void btnDoaçõesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoaçõesActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+       DoacaoListar tela = new DoacaoListar(doacaoController, pessoaController);
+        tela.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                TelaPrincipal.this.setVisible(true);
+            }
+        });
+        tela.setVisible(true);
     }//GEN-LAST:event_btnDoaçõesActionPerformed
 
     private void btnSolicitaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitaçãoActionPerformed

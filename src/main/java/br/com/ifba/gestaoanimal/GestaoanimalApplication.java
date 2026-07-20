@@ -2,6 +2,7 @@ package br.com.ifba.gestaoanimal;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
+import br.com.ifba.gestaoanimal.doacao.controller.DoacaoIController;
 import br.com.ifba.gestaoanimal.geral.view.TelaLogin;
 import br.com.ifba.gestaoanimal.logauditoria.controller.LogAuditoriaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
@@ -28,6 +29,7 @@ public class GestaoanimalApplication {
         OcorrenciaController ocorrenciaController = context.getBean(OcorrenciaController.class);
         SolicitacaoVoluntarioIController solicitacaoController = context.getBean(SolicitacaoVoluntarioIController.class);
         LogAuditoriaIController logauditoriaController = context.getBean(LogAuditoriaIController.class);
+        DoacaoIController doacaoController = context.getBean(DoacaoIController.class);
         
         SwingUtilities.invokeLater(() -> {
             TelaLogin telaLogin = new TelaLogin(
@@ -38,7 +40,8 @@ public class GestaoanimalApplication {
                 registroSaudeController,
                 ocorrenciaController,
                 solicitacaoController,
-                logauditoriaController
+                logauditoriaController,
+                doacaoController
             );
             telaLogin.setVisible(true);
         });

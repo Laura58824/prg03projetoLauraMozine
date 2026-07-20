@@ -3,6 +3,7 @@ package br.com.ifba.gestaoanimal.geral.view;
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
+import br.com.ifba.gestaoanimal.doacao.controller.DoacaoIController;
 import br.com.ifba.gestaoanimal.logauditoria.controller.LogAuditoriaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
 import br.com.ifba.gestaoanimal.pessoa.controller.PessoaController;
@@ -24,6 +25,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private final OcorrenciaController ocorrenciaController;
     private final SolicitacaoVoluntarioIController solicitacaoController;
     private final LogAuditoriaIController logAuditoriaController;
+    private final DoacaoIController doacaoController;
     
     public TelaLogin(UsuarioIController usuarioController,
                       AnimalIController animalController,
@@ -32,7 +34,8 @@ public class TelaLogin extends javax.swing.JFrame {
                       RegistroSaudeController registroSaudeController,
                       OcorrenciaController ocorrenciaController,
                       SolicitacaoVoluntarioIController solicitacaoController,
-                      LogAuditoriaIController logAuditoriaController) {
+                      LogAuditoriaIController logAuditoriaController,
+                      DoacaoIController doacaoController) {
 
         this.usuarioController = usuarioController;
         this.animalController = animalController;
@@ -42,7 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
         this.ocorrenciaController = ocorrenciaController;
         this.solicitacaoController = solicitacaoController;
         this.logAuditoriaController = logAuditoriaController;
-
+        this.doacaoController= doacaoController;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -172,7 +175,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 registroSaudeController,
                 ocorrenciaController,
                 solicitacaoController,
-                logAuditoriaController
+                logAuditoriaController,
+                doacaoController
         );
         telaPrincipal.setVisible(true);
         this.dispose();
