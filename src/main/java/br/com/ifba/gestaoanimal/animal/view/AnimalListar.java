@@ -58,7 +58,7 @@ private void configurarTabela() {
             public java.awt.Component getTableCellRendererComponent(javax.swing.JTable table,
                     Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                setHorizontalAlignment(JLabel.CENTER);  // ← centraliza
+                setHorizontalAlignment(JLabel.CENTER);  
                 if (isSelected) {
                     setBackground(new java.awt.Color(238, 237, 254));
                     setForeground(new java.awt.Color(60, 52, 137));
@@ -114,7 +114,7 @@ private void configurarTabela() {
     btnEditar.setOpaque(true);
     btnEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 52, 137), 1, true));
 
-    btnDesativar.setText(" Desativar ");
+    btnDesativar.setText(" Excluir ");
     btnDesativar.setForeground(new java.awt.Color(163, 45, 45));
     btnDesativar.setBackground(java.awt.Color.WHITE);
     btnDesativar.setFont(fonte);
