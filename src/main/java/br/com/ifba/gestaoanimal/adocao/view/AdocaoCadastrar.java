@@ -1,5 +1,5 @@
 package br.com.ifba.gestaoanimal.adocao.view;
-
+ 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
@@ -12,14 +12,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-
+ 
 public class AdocaoCadastrar extends javax.swing.JFrame {
-
+ 
     private final AdocaoController adocaoController;
     private final AnimalIController animalController;
     private final PessoaController pessoaController;
     private final AdocaoListar parent;
-
+ 
     public AdocaoCadastrar(AdocaoController adocaoController, AnimalIController animalController,
             PessoaController pessoaController, AdocaoListar parent) {
         this.adocaoController = adocaoController;
@@ -30,21 +30,21 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         configurarTela();
         
     }
-
+ 
     private void configurarTela() {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SOSPatas — nova adoção");
         setLocationRelativeTo(null);
-
+ 
         java.awt.Font fonte = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12);
-
+ 
          cmbAnimal.setModel(new DefaultComboBoxModel<>(animalController.findAll().toArray(Animal[]::new)));
-
+ 
         cmbAdotante.setModel(new DefaultComboBoxModel<>(pessoaController.findAll().toArray(Pessoa[]::new)));
-
+ 
         cmbResponsavel.setModel(new DefaultComboBoxModel<>(pessoaController.findAll().toArray(Pessoa[]::new)));
         cmbStatus.setModel(new DefaultComboBoxModel<>(StatusAdocaoEnum.values()));
-
+ 
         cmbAnimal.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(javax.swing.JList list, Object value,
@@ -56,7 +56,7 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
                 return this;
             }
         });
-
+ 
         javax.swing.DefaultListCellRenderer rendererPessoa = new javax.swing.DefaultListCellRenderer() {
             @Override
             public java.awt.Component getListCellRendererComponent(javax.swing.JList list, Object value,
@@ -70,7 +70,7 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         };
         cmbAdotante.setRenderer(rendererPessoa);
         cmbResponsavel.setRenderer(rendererPessoa);
-
+ 
         cmbAnimal.setFont(fonte);
         cmbAdotante.setFont(fonte);
         cmbResponsavel.setFont(fonte);
@@ -80,22 +80,22 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         txtMotivoRecusa.setFont(fonte);
         btnSalvar.setFont(fonte);
         btnCancelar.setFont(fonte);
-
+ 
         btnSalvar.setText("Cadastrar");
         btnSalvar.setForeground(new java.awt.Color(59, 109, 17));
         btnSalvar.setBackground(java.awt.Color.WHITE);
         btnSalvar.setOpaque(true);
         btnSalvar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(59, 109, 17), 1, true));
-
+ 
         btnCancelar.setText("Cancelar");
         btnCancelar.setForeground(new java.awt.Color(80, 80, 80));
         btnCancelar.setBackground(java.awt.Color.WHITE);
         btnCancelar.setOpaque(true);
         btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1, true));
-
+ 
         txtDataConclusao.setToolTipText("dd/MM/yyyy (deixe em branco se ainda não concluída)");
     }
-
+ 
     private void salvar() {
         if (cmbAnimal.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Selecione o animal.", "Campo obrigatório", JOptionPane.WARNING_MESSAGE);
@@ -141,7 +141,7 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
         adocao.setDataAbertura(LocalDate.now());
         adocao.setObservacoesEntrevista(txtObs.getText().trim());
         adocao.setMotivoRecusa(txtMotivoRecusa.getText().trim());
-
+ 
         String dataConclusaoStr = txtDataConclusao.getText().trim();
         if (!dataConclusaoStr.isEmpty()) {
             try {
@@ -157,13 +157,18 @@ public class AdocaoCadastrar extends javax.swing.JFrame {
                 return;
             }
         }
-
-        adocaoController.save(adocao);
+ 
+        try {
+            adocaoController.save(adocao);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro ao salvar", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         JOptionPane.showMessageDialog(this, "Adoção cadastrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         parent.carregarTabela();
         dispose();
     }
-
+ 
     private void cancelar() {
         dispose();
     }

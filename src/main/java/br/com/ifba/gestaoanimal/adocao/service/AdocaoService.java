@@ -2,7 +2,10 @@ package br.com.ifba.gestaoanimal.adocao.service;
 
 import br.com.ifba.gestaoanimal.adocao.entity.Adocao;
 import br.com.ifba.gestaoanimal.adocao.repository.AdocaoRepository;
+import br.com.ifba.gestaoanimal.animal.entity.Animal;
+import br.com.ifba.gestaoanimal.animal.repository.AnimalRepository;
 import br.com.ifba.gestaoanimal.enums.StatusAdocaoEnum;
+import br.com.ifba.gestaoanimal.enums.StatusAnimalEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ public class AdocaoService implements AdocaoIService {
 
     @Autowired
     private AdocaoRepository adocaoRepository;
+
+    @Autowired
+    private AnimalRepository animalRepository;
 
     @Override
     public Adocao save(Adocao adocao) {
@@ -27,6 +33,12 @@ public class AdocaoService implements AdocaoIService {
             throw new IllegalArgumentException("Adotante e obrigatorio.");
         if (adocao.getResponsavel() == null)
             throw new IllegalArgumentException("Responsavel e obrigatorio.");
+
+        Animal animal = animalRepository.findById(adocao.getAnimal().getId())
+                .orElseThrow(() -> new RuntimeException("Animal nao encontrado."));
+        if (animal.getStatus() == StatusAnimalEnum.ADOTADO)
+            throw new IllegalStateException("Este animal ja foi adotado e ainda nao foi devolvido.");
+
         if (adocao.getStatus() == null)
             adocao.setStatus(StatusAdocaoEnum.PENDENTE);
         if (adocao.getDataAbertura() == null)
@@ -44,17 +56,23 @@ public class AdocaoService implements AdocaoIService {
         Adocao original = adocaoRepository.findById(adocao.getId())
                 .orElseThrow(() -> new RuntimeException("Adocao nao encontrada com id: " + adocao.getId()));
 
-        // Preserva campos que nao devem ser alterados
+       
         adocao.setDataAbertura(original.getDataAbertura());
         adocao.setAnimal(original.getAnimal());
 
-        // Valida campos obrigatorios que podem ser atualizados
+     
         if (adocao.getAdotante() == null)
             throw new IllegalArgumentException("Adotante e obrigatorio.");
         if (adocao.getResponsavel() == null)
             throw new IllegalArgumentException("Responsavel e obrigatorio.");
         if (adocao.getStatus() == null)
             throw new IllegalArgumentException("Status e obrigatorio.");
+
+        if (adocao.getStatus() == StatusAdocaoEnum.CONCLUIDA) {
+            Animal animal = adocao.getAnimal();
+            animal.setStatus(StatusAnimalEnum.ADOTADO);
+            animalRepository.save(animal);
+        }
 
         return adocaoRepository.save(adocao);
     }

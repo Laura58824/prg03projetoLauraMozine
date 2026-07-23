@@ -89,15 +89,6 @@ public class SolicitacaoVoluntarioCadastrar extends javax.swing.JFrame {
     private void cancelar() {
         dispose();
     }
- 
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {
-        salvar();
-    }
- 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        cancelar();
-    }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -134,8 +125,10 @@ public class SolicitacaoVoluntarioCadastrar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtMotivacao);
 
         btnSalvar.setText("Cadastrar");
+        btnSalvar.addActionListener(this::btnSalvarActionPerformed);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -178,6 +171,14 @@ public class SolicitacaoVoluntarioCadastrar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        salvar();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+      cancelar ();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     
     public static void main(String args[]) {
