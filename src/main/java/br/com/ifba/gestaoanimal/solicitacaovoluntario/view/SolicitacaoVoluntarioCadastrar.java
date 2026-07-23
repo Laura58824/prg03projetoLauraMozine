@@ -89,6 +89,15 @@ public class SolicitacaoVoluntarioCadastrar extends javax.swing.JFrame {
     private void cancelar() {
         dispose();
     }
+ 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {
+        salvar();
+    }
+ 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        cancelar();
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -2,7 +2,6 @@ package br.com.ifba.gestaoanimal.geral.view;
 
 import br.com.ifba.gestaoanimal.adocao.controller.AdocaoController;
 import br.com.ifba.gestaoanimal.animal.controller.AnimalIController;
-import br.com.ifba.gestaoanimal.animal.controller.AnimalController;
 import br.com.ifba.gestaoanimal.doacao.controller.DoacaoIController;
 import br.com.ifba.gestaoanimal.logauditoria.controller.LogAuditoriaIController;
 import br.com.ifba.gestaoanimal.ocorrencia.controller.OcorrenciaController;
